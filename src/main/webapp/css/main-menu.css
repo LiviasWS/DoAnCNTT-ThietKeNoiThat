@@ -1,0 +1,283 @@
+html, body 
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.background
+{
+    width: 100%;
+    height: 100%;
+    background-image: url(https://gooccho.vn/wp-content/uploads/2013/11/thiet-ke-noi-that-phong-bep-dep-2020-2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+}
+.background__flur
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.header
+{
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__container
+{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+}
+.header__item
+{
+    color: white;
+    font-size: 15px;
+    list-style-type: none;
+}
+.header__item--logo
+{
+    font-size: 30px;
+    margin-left: 40px;
+}
+.header__item--title
+{
+    margin-right: 20px;
+    padding: 10px 15px 10px 15px;
+}
+.header__item--title:hover
+{
+    color: black;
+    background-color: white;
+}
+.header__container--title
+{
+    margin-right: 60px;
+}
+.background__title
+{
+    position: relative;
+    top: 350px;
+    color: white;
+    height: 200px;
+    width: 100%;
+    text-align: center;
+}
+.background__title__text
+{
+    font-size: 30px;
+}
+.background__title__text::first-line
+{
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.mainContent
+{
+    position: relative;
+    height: 1300px;
+    width: 100%;
+    background-color: white;
+    top: 700px;
+}
+.mainContent__container
+{
+    position: absolute;
+    height: 500px;
+    top: 100px;
+    width: 80%;
+    left: 200px;
+    background-color: rgba(209, 205, 205, 0.555);
+    border-radius: 50px;
+}
+.mainContent__image
+{
+    position: absolute;
+    height: 350px;
+    width: 450px;
+    left: 70px;
+    top: 200px;
+    border-radius: 50px;
+    background-size: cover;
+}
+.mainContent__image--office
+{
+    background-image: ('/DoAnCNTT1_KinhDoanhNoiThat/src/main/webapp/image/collection-image--office.avif');
+}
+.mainContent__image--coffee
+{
+    background-image: url(https://th.bing.com/th/id/OIP.u1WXmyTYmXfbmNudpSnmUgHaDt?w=346&h=174&c=7&r=0&o=5&pid=1.7);
+}
+.mainContent__image--dazzle
+{
+    background-image: url(https://www.ikea.com/global/en/images/a_lifestyle_store_display_ai2001_05_PH_163516_ikea_l_ef9e275c68.jpg?f=xxxl);
+}
+.mainContent__title
+{
+    position: absolute;
+    top: 150px;
+    font-size: 40px;
+    font-weight: bolder;
+    left: 650px;
+}
+.mainContent__content
+{
+    position: absolute;
+    top: 220px;
+    left: 650px;
+    width: 500px;
+    height: 270px;
+    font-size: 20px;
+}
+.mainContent__directionContainer
+{
+    position: absolute;
+    left: 630px;
+    height: 50px;
+    top: 475px;
+    width: 550px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background-origin: border-box;
+    border: none;
+    background: none;
+    transition: background-color 1s;
+    border-radius: 50px;
+}
+.mainContent__directionContainer:hover
+{
+    background-color: rgb(190, 189, 189);
+}
+.mainContent__bestSeller__container
+{
+    height: 400px;
+    width: 100%;
+    top: 820px;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-around;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.mainContent__bestSeller__title
+{
+    font-size: 40px;
+    height: 100px;
+    width: 100%;
+    top: 700px;
+    position: absolute;
+    text-align: center;
+    font-weight: bolder;
+    color: black;
+}
+.mainContent__bestSeller__item
+{
+    height: 400px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: rgba(236, 236, 236, 0.404);
+}
+.mainContent__bestSeller__item__name
+{
+    font-size: 18px;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+
+}
+.mainContent__bestSeller__item__price
+{
+    font-size: 18px;
+    color: red;
+    position: absolute;
+    bottom: 5px;
+}
+.mainContent__bestSeller__image
+{
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+mainContent__bestSeller__item__star
+{
+    height: 10px;
+    width: 100%;
+}
+.mainContent__bestSeller__item__infor
+{
+    height: 150px;
+    width: 100%;
+    position: relative;
+    padding-left: 10px;
+}
+.mainContent__bestSeller__image--office1
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202423/0068/mid-century-swivel-office-chair-metal-legs-xl.jpg);
+}
+.mainContent__bestSeller__image--office2
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202415/0168/parsons-l-shaped-file-cabinet-desk-slope-office-chair-set-xl.jpg);
+}
+.mainContent__bestSeller__image--office3
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202420/0030/industrial-modular-desk-with-shelves-storage-xl.jpg);
+}
+.mainContent__bestSeller__image--office4
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202422/0018/steelcase-shortcut-office-chair-o.jpg);
+}
+.mainContent__bestSeller__image--coffee1
+{
+    background-image: url(https://assets.wfcdn.com/im/28120514/resize-h800-w800%5Ecompr-r85/2218/221818971/Multifunctional+Coffee+Pod+Storage.jpg);
+}
+.mainContent__bestSeller__image--coffee2
+{
+    background-image: url(https://assets.wfcdn.com/im/35335220/resize-h800-w800%5Ecompr-r85/2340/234087106/Raised+Panel+48%27%27+W+x+75%27%27+H+Espresso+Medium+Density+Fiberboard+%28MDF%29+Kitchen+Cabinet+Set+Ready-to-Assemble.jpg);
+}
+.mainContent__bestSeller__image--coffee3
+{
+    background-image: url(https://assets.wfcdn.com/im/53797703/resize-h700-w700%5Ecompr-r85/6286/62868279/Stoneware+Jar+-+Set+of+3.jpg);
+}
+.mainContent__bestSeller__image--coffee4
+{
+    background-image: url(https://assets.wfcdn.com/im/38206906/resize-h800-w800%5Ecompr-r85/2782/278249430/Coffee+Pod+Holder+Storage+Pod+Drawer+Compatible+with+Nespresso+Original+Line+Coffee+Pods.jpg);
+}
+.mainContent__bestSeller__image--dazzle1
+{
+    background-image: url(https://assets.wfcdn.com/im/46131899/resize-h800-w800%5Ecompr-r85/9091/90910566/RIEDEL+Performance+Champagne+Glass+%28Set+of+2%29.jpg);
+}
+.mainContent__bestSeller__image--dazzle2
+{
+    background-image: url(https://assets.wfcdn.com/im/07767152/resize-h800-w800%5Ecompr-r85/2401/240193972/Lathe+Flat+Mirror.jpg);
+}
+.mainContent__bestSeller__image--dazzle3
+{
+    background-image: url(https://assets.wfcdn.com/im/81405564/resize-h700-w700%5Ecompr-r85/1855/185552090/Wool+Rug.jpg);
+}
+.mainContent__bestSeller__image--dazzle4
+{
+    background-image: url(https://assets.wfcdn.com/im/30500980/resize-h700-w700%5Ecompr-r85/2140/214025911/Well+Woven+Zazzle+Argos+Vintage+Floral+Modern+Black+Area+Rug.jpg);
+}
+footer__container
+{
+    height: 500px;
+    width: 100%;
+    background-color: rgb(179, 178, 178);
+    position: relative;
+    top: 10000px;
+}

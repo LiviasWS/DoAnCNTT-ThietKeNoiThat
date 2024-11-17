@@ -1,0 +1,338 @@
+header
+{
+    height: 80px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-around;
+}
+.header__container
+{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin-top: 20px;
+}
+.header__item
+{
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    align-items: center;
+    margin-bottom: 0px;
+}
+.header__title
+{
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: 25px;
+    color: rgba(0, 0, 0, 0.8);
+}
+.search__container
+{
+    height: 40px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    margin-top: 25px;
+}
+.search__input
+{
+    height: 30px;
+    width: 260px;
+}
+.search__button
+{
+    height: 30px;
+    width: 30px;
+    align-items: center;
+}
+.type__title
+{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 2.5%;
+    margin-top: 70px;
+    margin-bottom: 0px;
+}
+.catagories__container
+{
+    height: 160px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.catagories__container__choosen
+{
+    height: 160px;
+    width: 200px;
+    border: solid 2px rgba(128, 128, 128, 0.8);
+    border-radius: 50px;
+    padding-top: 10px;
+}
+.catagories__container__selection
+{
+    height: 160px;
+    width: 1000px;
+    border: solid 2px rgba(128, 128, 128, 0.8);
+    display: flex;
+    flex-direction: row;
+    padding-left: 30px;
+    border-radius: 50px;
+    padding-top: 10px;
+}
+.catagories__item
+{
+    height: 160px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.catagories__item__image
+{
+    width: 120px;
+    height: 112px;
+    margin-left: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.catagories__item__image--desk
+{
+    background-image: url(https://www.ikea.com/global/assets/range-categorisation/images/product/desks-for-office-47069.jpeg?imwidth=160);
+}
+.catagories__item__image--chair
+{
+    background-image: url(https://www.ikea.com/us/en/range-categorisation/images/product/chairs-fu002.jpeg?imwidth=160);
+}
+.catagories__item__image--storage
+{
+    background-image: url(https://www.ikea.com/global/assets/range-categorisation/images/product/storage-organisation-st001.jpeg?imwidth=160);
+}
+.catagories__item__image--rug
+{
+    background-image: url(https://www.ikea.com/global/assets/range-categorisation/images/product/large-medium-rugs-10692.jpeg?imwidth=160);
+}
+.catagories__item__image--drinkware
+{
+    background-image: url(https://www.ikea.com/global/assets/range-categorisation/images/product/glassware-jugs-18868.jpeg?imwidth=160);
+}
+.vertical-line
+{
+    width: 1px;
+    height: 160px;
+    background-color: rgba(128, 128, 128, 0.8);
+    margin-left: 50px;
+}
+.main__container
+{
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.filter__container
+{
+    height: 900px;
+    width: 250px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    box-shadow: inset 0 0 0 2px rgba(128, 128, 128, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+.space__line
+{
+    width: 100%;
+    height: 2px;
+    background-color: rgba(128, 128, 128, 0.6);
+    padding-right: 20px;
+    margin-top: 30px;
+    flex-shrink: 0;
+}
+.list__container
+{
+    height: 900px;
+    width: 75%;
+    box-shadow: inset 0 0 0 2px rgba(128, 128, 128, 0.6);
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow: auto;
+}
+.result__title
+{
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 2.5%;
+    margin-top: 70px;
+    margin-bottom: 0px;
+}
+.filter__header
+{
+    color: rgb(71, 70, 70);
+    font-weight: bolder;
+    margin: 0;
+    margin-top: 30px;
+    font-size: 17px;
+}
+.filter__item__container
+{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-shrink: 0;
+}
+.filter__item__container--color
+{
+    flex-direction: row;
+    flex-wrap: auto;
+}
+.filter__item__color
+{
+    height: 30px;
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: center;
+}
+.filter__item__color__box
+{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: black 1px solid;
+}
+.filter__item__color__title
+{
+    margin: 0;
+    margin-left: 8px;
+    font-size: 12px;
+}
+.filter__item__color__box--white
+{
+    background-color: white;
+}
+.filter__item__color__box--blue
+{
+    background-color: blue;
+}
+.filter__item__color__box--gray
+{
+    background-color: gray;
+}
+.filter__item__color__box--brown
+{
+    background-color: brown;
+}
+.filter__item__color__box--red
+{
+    background-color: red;
+}
+.filter__item__color__box--gold
+{
+    background-color: gold;
+}
+.filter__item__color__box--ivory
+{
+    background-color: ivory;
+}
+.filter__item__color__box--green
+{
+    background-color: green;
+}
+.filter__item__container--common
+{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.filter__item__common
+{
+    height: 20px;
+    width: 150px;
+    margin-top: 15px;
+    transform: scale(1.1);
+    padding-left: 10px;
+    font-size: 13px;
+}
+.list__item
+{
+    height: 370px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: rgba(236, 236, 236, 0.404);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+.list__item__infor__container
+{
+    width: 100%;
+    height: 120px;
+    padding-left: 10px;
+}
+.list__item__image
+{
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.list__item__infor__name
+{
+    font-size: 18px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+.list__item__infor__price
+{
+    font-size: 18px;
+    color: red;
+}
+.list__item__infor__star
+{
+    height: 10px;
+    width: 100%;
+}
+.list__item__image--office1
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202423/0068/mid-century-swivel-office-chair-metal-legs-xl.jpg);
+}
+.list__item__image--office2
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202415/0168/parsons-l-shaped-file-cabinet-desk-slope-office-chair-set-xl.jpg);
+}
+.list__item__image--office3
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202420/0030/industrial-modular-desk-with-shelves-storage-xl.jpg);
+}
+.list__item__image--coffee1
+{
+    background-image: url(https://assets.wfcdn.com/im/28120514/resize-h800-w800%5Ecompr-r85/2218/221818971/Multifunctional+Coffee+Pod+Storage.jpg);
+}
+.list__item__image--coffee2
+{
+    background-image: url(https://assets.wfcdn.com/im/35335220/resize-h800-w800%5Ecompr-r85/2340/234087106/Raised+Panel+48%27%27+W+x+75%27%27+H+Espresso+Medium+Density+Fiberboard+%28MDF%29+Kitchen+Cabinet+Set+Ready-to-Assemble.jpg);
+}
+.list__item__image--coffee3
+{
+    background-image: url(https://assets.wfcdn.com/im/53797703/resize-h700-w700%5Ecompr-r85/6286/62868279/Stoneware+Jar+-+Set+of+3.jpg);
+}

@@ -1,0 +1,350 @@
+header
+{
+    height: 80px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-around;
+}
+.header__container
+{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin-top: 20px;
+}
+.header__item
+{
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    align-items: center;
+    margin-bottom: 0px;
+}
+.header__title
+{
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: 25px;
+    color: rgba(0, 0, 0, 0.8);
+}
+.search__container
+{
+    height: 40px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    margin-top: 25px;
+}
+.search__input
+{
+    height: 30px;
+    width: 260px;
+}
+.search__button
+{
+    height: 30px;
+    width: 30px;
+    align-items: center;
+}
+.content__container
+{
+    width: 100%;
+    height: 650px;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.sub__image__container
+{
+    height: 605px;
+    width: 8%;
+    display: flex;
+    flex-direction: column;
+}
+.image__container
+{
+    height: 605px;
+    width: 45%;
+    background-color: gainsboro;
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202423/0068/mid-century-swivel-office-chair-metal-legs-xl.jpg);
+    background-size: cover;
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202423/0068/mid-century-swivel-office-chair-metal-legs-xl.jpg);
+}
+.infor__container
+{
+    height: 605px;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(236, 236, 236, 0.404);
+    padding-right: 20px;
+}
+.sub__image__item
+{
+    width: 100%;
+    height: 107px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 15px;
+}
+.sub__image__item--image1
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202434/0018/img468f.jpg);
+}
+.sub__image__item--image2
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202440/0010/mid-century-swivel-office-chair-metal-legs-f.jpg);
+}
+.sub__image__item--image3
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202417/0044/mid-century-swivel-office-chair-metal-legs-f.jpg);
+}
+.sub__image__item--image4
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202430/0034/parsons-mini-desk-f.jpg);
+}
+.sub__image__item--image5
+{
+    background-image: url(https://assets.weimgs.com/weimgs/ab/images/wcm/products/202434/0017/mid-century-swivel-office-chair-metal-legs-f.jpg);
+}
+.infor__name
+{
+    font-size: 30px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.infor__price
+{
+    font-size: 20px;
+    margin-left: 20px;
+}
+.infor__fabric
+{
+    width: 100%;
+    height: 320px;
+    overflow: auto;
+    background-color: rgba(224, 222, 222, 0.603);
+    margin-left: 10px;
+}
+.infor__fabric__type__container
+{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.infor__fabric__type__name
+{
+    height: 30px;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.6);
+    text-align: center;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+.infor__fabric__type__item__container
+{
+    width: 65px;
+    height: 115px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-size: cover;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+.infor__fabric__type__item__image
+{
+    width: 100%;
+    height: 65px;
+}
+.infor__fabric__type__item__image--silver
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202421/0077/img47x.jpg);
+}
+.infor__fabric__type__item__image--alabaster
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202421/0045/img14x.jpg);
+}
+.infor__fabric__type__item__image--pewter
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202421/0080/img15x.jpg);
+}
+.infor__fabric__type__item__image--graphite
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202422/0038/img38x.jpg);
+}
+.infor__fabric__type__item__image--frostgray
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202421/0065/img8x.jpg);
+}
+.infor__fabric__type__item__image--sand
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202421/0049/img14x.jpg);
+}
+.infor__fabric__type__item__image--camel
+{
+    background-image: url(https://assets.weimgs.com/weimgs/rk/images/wcm/products/202418/0045/img65x.jpg);
+}
+.infor__sub__container
+{
+    width: 100%;
+    height: 50px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+}
+.quantity-container 
+{
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-bottom: 9px;
+}
+.quantity-container button 
+{
+  background-color: rgba(128, 128, 128, 0.6);
+  color: white;
+  border: none;
+  padding: 0px 10px;
+  cursor: pointer;
+}
+.quantity-container button:hover 
+{
+  background-color: rgba(128, 128, 128, 0.6);
+}
+.quantity-container input 
+{
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ddd;
+  margin: 0 10px;
+  font-size: 16px;
+}
+.addToCart__button
+{
+    height: 40px;
+    width: 120px;
+    text-align: center;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.6);
+    margin-left: auto;
+    border: none;
+    margin-left: 70px;
+    margin-right: 20px;
+}
+.review__container
+{
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+.review__grade__container
+{
+    width: 20%;
+    height: 450px;
+    background-color: rgba(236, 236, 236, 0.404);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.review__grade__avergrade__container
+{
+    height: 190px;
+    width: 190px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 7px solid rgba(128, 128, 128, 0.8);
+    color: rgba(128, 128, 128, 0.8);
+}
+.review__grade__avergrade
+{
+    font-size: 50px;
+    font-weight: bold;
+}
+.spaceline
+{
+    height: 3px;
+    width: 80%;
+    background-color: rgba(128, 128, 128, 0.6);
+    margin-top: 20px;
+}
+.review__grade__detail__container
+{
+    width: 80%;
+    height: 150px;
+    margin-top: 20px;
+}
+.review__grade__detail__item
+{
+    height: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.review__grade__detail__item__grade
+{
+    width: 70%;
+    height: 100%;
+    align-items: center;
+}
+.review__grade__detail__item__count
+{
+    width: 20%;
+    height: 100%;
+    margin-right: 20px;
+    font-weight: bolder;
+    color: rgba(128, 128, 128, 0.8);
+}
+.review__comment__container
+{
+    width: 75%;
+    height: 450px;
+    background-color: rgba(236, 236, 236, 0.404);
+    display: flex;
+    flex-direction: column;
+}
+.review__comment__item
+{
+    width: 80%;
+    height: 150px;
+    margin-top: 30px;
+    margin-left: 30px;
+    background-color: white;
+    border-radius: 50px;
+    border: 2px solid rgba(128, 128, 128, 0.6);
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.review__comment__item__name
+{
+    font-size: 18px;
+    font-weight: bolder;
+    color: rgba(128, 128, 128, 0.8);
+    margin: 0px;
+    margin-top: 20px;
+}
+.review__comment__item__content
+{
+    font-size: 14px;
+    margin-right: 40px;
+}
