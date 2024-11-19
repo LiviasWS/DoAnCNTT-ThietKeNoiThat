@@ -1,0 +1,280 @@
+.btn-add-to-cart{
+	background-color: #f0f0f0;
+    border: none;
+    color: #e91e63; /* Pink color */
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 15px;
+    border: 1px solid #D2B48C;
+}
+.btn-add-to-cart:hover{
+	background-color: #e91e63;
+    color: #fff;
+}
+.img-remove{
+	width: 30px;
+    height: 30px;
+}
+.custom-navbar {
+        background-color: #808080 !important; 
+}
+.hero {
+        background-color: #808080; 
+}
+.btn-unlike{
+	width: 50px;
+    height: 50px;
+}
+
+.img-voucher{
+	width: 10px;
+    height: 10px;
+}
+.img-ava{
+	width: 300px !important;
+    height: 300px !important;
+}
+.section-title2{
+	padding-bottom: 50px;
+}
+.btn-change{
+	background-color: orange;
+	margin-top: 15px;
+	margin-left: 115px;
+	padding: 5px 15px;
+	border-radius: 10px;
+	color: #000;
+	text-decoration: bold;
+}
+
+.btn-update{
+	margin-top: 30px;
+	margin-left: 270px;
+	padding: 5px 15px;
+	border-radius: 10px;
+}
+
+
+.img-voucher{
+	width: 120px;
+    height: 120px;
+}
+.img-fluids{
+	width: 20px;
+    height: 20px;
+}
+.img-ship{
+	width: 120px;
+    height: 120px;
+    margin-left: 50px;
+}
+
+.voucher-container {
+    width: 85%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.voucher-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.voucher-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three vouchers per row */
+    gap: 15px;
+    padding-top: 30px;
+
+}
+
+.voucher {
+    background-color: #33b8a8;
+    color: #fff;
+    padding: 50px 20px;
+    border-radius: 20px;
+    position: relative;
+    text-align: left;
+    border: 1px solid #00a091;
+    width: 400px;
+}
+
+.voucher-info {
+    margin-bottom: 10px;
+}
+
+.voucher-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+}
+
+.voucher-discount {
+    font-size: 1.1em;
+    display: block;
+    margin-top: 5px;
+}
+
+.voucher-condition {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.voucher-label {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6f61;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+.voucher-date {
+    font-size: 0.8em;
+    color: #000;
+    display: block;
+    margin-top: 10px;
+}
+
+.voucher-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #00a091;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.voucher-link:hover {
+    background-color: #e6e6e6;
+}
+.strike-orange {
+  color: orange;        /* Màu cam */
+  text-decoration: line-through; /* Gạch ngang */
+  font-weight: bold;    /* (Tùy chọn) Tô đậm */
+}
+.readonly-style[readonly] {
+    background-color: #f8f9fa; /* Màu nền nhạt hơn */
+    color: #6c757d;           /* Màu chữ xám đậm */
+    border: 1px solid #dee2e6; /* Đường viền nhẹ */
+    font-style: italic;        /* (Tùy chọn) Chữ in nghiêng */
+    cursor: not-allowed;       /* Thay đổi con trỏ khi hover */
+  }
+
+/* Container voucher */
+.voucher-container {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép xuống dòng khi không đủ chỗ */
+    justify-content: space-between; /* Cân đối khoảng cách giữa các phần tử */
+    gap: 20px; /* Khoảng cách giữa các voucher */
+    padding: 10px;
+    column-gap: 0px; 
+}
+
+/* Card voucher */
+.voucher-card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Chiếm 30% chiều rộng để vừa 3 phần tử trên một hàng */
+    position: relative;
+    overflow: hidden;
+    height: 170px;
+    width: 400px;
+    min-width: 250px; /* Đảm bảo không quá nhỏ khi thu nhỏ màn hình */
+}
+
+
+/* Phần trái */
+.voucher-left {
+    background-color: #26a69a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.voucher-left img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+.voucher-left2 {
+    background-color: #EE4D2D;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.voucher-left2 img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+/* Phần phải */
+.voucher-right {
+    flex: 1;
+    padding: 15px;
+    color: #333;
+}
+
+.voucher-right h3 {
+    font-size: 18px;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.voucher-right p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.voucher-right .tag {
+    display: inline-block;
+    background-color: #fff5f5;
+    color: #e53935;
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.voucher-right a {
+    color: #26a69a;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.voucher-right a:hover {
+    text-decoration: underline;
+}
+
+
+/* Đếm số */
+.count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 50%;
+	margin-left: 30px;
+}
