@@ -47,14 +47,15 @@
         </header>
         <hr>
         <p class="result__title">Showing results for "${searchKey}" <p style="margin-left: 2.5%">(${count} results)</p>
+        <input type="hidden" name="searchKey" value= "${searchKey}">
         <div class="main__container">
-            <div class="filter__container">
+            <form id="filterForm" action="${pageContext.request.contextPath}/ProductServlet" class="filter__container">
                 <p class="filter__header">Color</p>
                 <div class="filter__item__container filter__item__container--common">
 	                <c:forEach var="color" items="${colors}">
-	                    <div class="filter__item__color">
-	                        <div class="filter__item__color__box" style="background-image: url('${pageContext.request.contextPath}${color.image}');"></div>
-	                        <p class="filter__item__color__title">${color.name}</p>
+	                    <div class="filter__item__common">
+	                        <input type="checkbox" name="color" value="${color.id}" onchange="applyFilter()">
+	                        <label>${color.name}</label><br>
 	                    </div>
 	                </c:forEach>
                 </div>
@@ -88,7 +89,7 @@
                     </div>
                 </c:forEach>
                 </div>
-            </div>
+            </form>
             <div class="list__container">
 	            <c:forEach var= "product" items="${products}">
 	                <div class="list__item" style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath }/ProductDetailServlet?id=${product.id}'">

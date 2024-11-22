@@ -19,6 +19,40 @@ public class ProductDAO
 		connection = DBUtil.getConnection();
 	}
 	
+	public List<Product> getProductByColors(List<String> colors)
+	{
+		return null;
+	}
+	
+	public List<Product> getProductByFilter(String color)
+	{
+		String sqlString = "SELECT COLOR_TABLE.* "
+				+ "FROM ( CALL GET_PRODUCT_BY_COLOR(" + color + ")) AS COLOR_TABLE;";
+		List<Product> products = new ArrayList<>();
+		try
+		{
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while(rs.next())
+			{
+				Product product = new Product();
+				product.setId(rs.getInt("id"));
+				product.setName(rs.getString("name"));
+				product.setPrice(rs.getString("price"));
+				product.setCategory(rs.getString("category"));
+				product.setCollection(rs.getString("collection"));
+				product.setImage(rs.getString("image"));
+				product.setQuantity(rs.getInt("quantity"));
+				product.setSold(rs.getInt("sold"));	
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return products;
+	}
+	
 	public Product getProductByID(int id)
 	{
 		String sqlString = "SELECT * FROM PRODUCT WHERE ID = " + id + ";";

@@ -21,7 +21,7 @@ public class ColorDAO
 	
 	public List<Color> GetAllColor()
 	{
-		String sqlString="CALL SELECT_ALL_COLOR();";
+		String sqlString="SELECT * FROM COLOR";
 		List<Color> colors= new ArrayList<>();
 		try
 		{
@@ -40,6 +40,27 @@ public class ColorDAO
 			e.printStackTrace();
 		}
 		return colors;
+	}
+	
+	public Color GetColorByID(String id)
+	{
+		String sqlString="SELECT * FROM COLOR";
+		Color color= new Color();
+		try
+		{
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while(rs.next())
+			{
+				color.setId(rs.getInt("id"));
+				color.setName(rs.getString("name"));
+				color.setImage(rs.getString("image"));
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return color;
 	}
 	
 }

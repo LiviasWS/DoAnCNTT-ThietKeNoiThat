@@ -60,6 +60,9 @@ public class ProductServlet extends HttpServlet {
 				break;
 			case "Search":
 				ShowProductBySearching(request, response);
+				break;
+			case "Filter":
+				ShowProductByFilter(request, response);
 			default: 
 				break;
 		}
@@ -71,6 +74,26 @@ public class ProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	private void ShowProductByFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		try
+		{
+			String address = "search-page.jsp";
+			String color = request.getParameter("color");
+			String searchKey = request.getParameter("searchKey");
+			List<Product> products = productDAO.getProductByFilter(color);
+			request.setAttribute("products", products);
+			request.setAttribute("count", products.size());
+			request.setAttribute("searchKey", searchKey);
+			RequestDispatcher dispatcher =  request.getRequestDispatcher(address);
+			dispatcher.forward(request, response);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	private void ShowProductByCollection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
