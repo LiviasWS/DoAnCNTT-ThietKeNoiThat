@@ -9,10 +9,11 @@
     <link rel="stylesheet" type="text/css" href="css/sign-in.css">
 </head>
 <body>
-	<div class="background">
-		<div class="background-flur">
-		    <form class="registration-form" action="#" method="POST" enctype="multipart/form-data">
+	<div class="background" style= " background-image: url('<%= request.getContextPath() %>/image/login-background-image.jpg'); " >
+		<div class="background-flur" style = "background-color: rgba(0, 0, 0, 0.5); ">
+		    <form class="registration-form" action="${pageContext.request.contextPath}/LogInServlet" enctype="multipart/form-data">
 		        <h2>Register</h2>
+		        <br>
 		        <div class="form-group">
 		            <label for="username">Username</label>
 		            <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -30,10 +31,6 @@
 		            <input type="email" id="email" name="email" placeholder="Enter your email" required>
 		        </div>
 		        <div class="form-group">
-		            <label for="birthday">Birthday</label>
-		            <input type="date" id="birthday" name="birthday" required>
-		        </div>
-		        <div class="form-group">
 		            <label for="gender">Gender</label>
 		            <select id="gender" name="gender" required>
 		                <option value="" disabled selected>Select your gender</option>
@@ -46,15 +43,15 @@
 		            <label for="phone">Phone</label>
 		            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
 		        </div>
-		        <div class="form-group">
-		            <label for="image">Profile Picture</label>
-		            <input type="file" id="image" name="image" accept="image/*" required>
-		        </div>
+		        <br>
+		        <input type="hiddent" name="action" value="signup">
 		        <div class="form-actions">
 		            <button type="submit">Register</button>
 		        </div>
-		    </form>
+		        <br>
+			</form>
 	    </div>
     </div>
+    
 </body>
 </html>

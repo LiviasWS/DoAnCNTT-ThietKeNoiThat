@@ -1,18 +1,31 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="en">
 <head>
-<!-- Bootstrap CSS -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
 		<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
-		<link href="${pageContext.request.contextPath}/css/style2.css" rel="stylesheet">
-</head>
-<body>
+				<link href="${pageContext.request.contextPath}/css/style2.css" rel="stylesheet">
+				<title>Voucher Shipping </title>
+	</head>
 
-<!-- Start Header/Navigation -->
+	<body>
+
+		<!-- Start Header/Navigation -->
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -29,14 +42,14 @@
 						</li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/shop.jsp">Shop</a></li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/voucher.jsp">Coupon</a></li>
-						<li><a class="nav-link" href="services.html">History</a></li>
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/favo.jsp">Favorite</a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/HistoryServlet">History</a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/FavoriteServlet">Favorite</a></li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/contact.jsp">Contact us</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/info.jsp"><img src="${pageContext.request.contextPath}/images/user.svg"></a></li>
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/cart.jsp"><img src="${pageContext.request.contextPath}/images/cart.svg"></a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/InfoServlet"><img src="${pageContext.request.contextPath}/images/user.svg"></a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/CartServlet"><img src="${pageContext.request.contextPath}/images/cart.svg"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -50,68 +63,71 @@
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Information</h1>
-								
+								<h1>Your Orders</h1>
+								<p class="mb-4">Tận hưởng khuyến mãi để nhận được ưu đãi tốt nhất nhé !</p>
+								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Cart</a></p>
 							</div>
 						</div>
-
+						<div class="col-lg-7">
+							<div class="hero-img-wrap">
+								<!--<img src="images/couch.png" class="img-fluid">-->
+							</div>
 						</div>
 					</div>
 				</div>
-
+			</div>
 		<!-- End Hero Section -->
 
-
-
-
-		<div class="container">
-        <header>
-            <a href="#" class="back-button">←</a>
-            <h1>Đơn đã mua</h1>
-        </header>
-        <nav>
-            <a href="#">Chờ giao hàng</a>
-            <a href="#">Trả hàng</a>
-            <a href="#" class="active">Đã giao</a>
-            <a href="#">Đã hủy</a>
-        </nav>
-        <div class="order-list">
-            <!-- Đơn hàng 1 -->
-            <div class="order-item">
-                <span class="favorite">Yêu thích</span>
-                <div class="shop-name">Tiệm tạp hóa Cô RuLyn</div>
-                <div class="product">
-                    <img src="product1.jpg" alt="Product 1">
-                    <div class="product-info">
-                        <p>[Hàng Sẵn] Blindbox Bé Ba Tuổi Macaron</p>
-                        <p>x1</p>
-                        <p class="price">260.000₫</p>
-                    </div>
-                </div>
-                <p class="total">Tổng số tiền (1 sản phẩm): <strong>261.999₫</strong></p>
-                <button class="button return">Trả hàng/Hoàn tiền</button>
-                <button class="button rate">Đánh giá</button>
+		
+		<!-- Start Blog Section -->
+		<div class="blog-section">
+		<div class="button-container">
+		<img src="${pageContext.request.contextPath}/images/list.png" alt="Button 1" class="button-img">
+    <img src="${pageContext.request.contextPath}/images/shopping-bag.png" alt="Button 1" class="button-img">
+    <img src="${pageContext.request.contextPath}/images/delivery-truck (1).png" alt="Button 2" class="button-img">
+    <img src="${pageContext.request.contextPath}/images/success.png" alt="Button 3" class="button-img">
+</div>
+		
+			<div class="voucher-container">
+        <div class="order-container">
+         <c:forEach var="payment" items="${payments}">
+        <div class="order-card">
+            <div class="order-header">
+                <span class="shop-image"><img src="${pageContext.request.contextPath}/images/sofa2.png" alt="Sản phẩm"></span>
+                <span class="shop-name">Đơn hàng #${payment.paymentId}</span>
+                <span class="order-status">Hoàn thành</span>
             </div>
+            <div class="order-details">
+            <c:forEach var="product" items="${payment.productList}">
+                <div class="product-info">
+                    <span class="product-title">${product.name}</span>
+                    <span class="product-subtitle"> x1</span>
 
-            <!-- Đơn hàng 2 -->
-            <div class="order-item">
-                <span class="favorite">Yêu thích</span>
-                <div class="shop-name">Mochi Hamster Shop</div>
-                <div class="product">
-                    <img src="product2.jpg" alt="Product 2">
-                    <div class="product-info">
-                        <p>Thức ăn trộn ngon sâu cho hamster</p>
-                        <p>x2</p>
-                        <p class="price">26.000₫</p>
-                    </div>
                 </div>
-                <p class="total">Tổng số tiền (2 sản phẩm): <strong>56.000₫</strong></p>
-                <button class="button return">Trả hàng/Hoàn tiền</button>
-                <button class="button rate">Đánh giá</button>
+                </c:forEach>
+            </div>
+            <div class="order-footer">
+                <p class="reward-info">Tổng tiền đơn hàng: <strong>₫${payment.finalAmount}</strong></p>
+                    
+                <div class="action-buttons">
+                
+                    <button class="btn-reorder" onclick="window.location='window.location='${pageContext.request.contextPath}/jsp/order-detail.jsp?paymentId=${payment.paymentId}'">Xem chi tiết</button>
+                    <button class="btn-review" onclick="window.location='window.location='${pageContext.request.contextPath}/jsp/review.jsp?paymentId=${payment.paymentId}'">Đánh giá</button>
+                </div>
             </div>
         </div>
-    </div>
-<!-- Start Footer Section -->
+        </c:forEach>
+
+        
+		</div>
+		</div>
+		<!-- End Blog Section -->	
+
+		
+
+	
+
+		<!-- Start Footer Section -->
 		<footer class="footer-section">
 			<div class="container relative">
 
@@ -216,9 +232,10 @@
 		</footer>
 		<!-- End Footer Section -->	
 
-		
+
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
-</body>
+	</body>
+
 </html>

@@ -1,12 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,14 +43,14 @@
 						</li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/shop.jsp">Shop</a></li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/voucher.jsp">Coupon</a></li>
-						<li><a class="nav-link" href="services.html">History</a></li>
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/favo.jsp">Favorite</a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/HistoryServlet">History</a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/FavoriteServlet">Favorite</a></li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/contact.jsp">Contact us</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/info.jsp"><img src="${pageContext.request.contextPath}/images/user.svg"></a></li>
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/cart.jsp"><img src="${pageContext.request.contextPath}/images/cart.svg"></a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/InfoServlet"><img src="${pageContext.request.contextPath}/images/user.svg"></a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/CartServlet"><img src="${pageContext.request.contextPath}/images/cart.svg"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -120,16 +116,6 @@
 		              </div>
 		            </div>
 
-		             <!-- /*<div class="form-group row">
-		              <div class="col-md-6">
-		                <label for="c_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_state_country" name="c_state_country">
-		              </div>
-		              <div class="col-md-6">
-		                <label for="c_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
-		              </div>
-		            </div>*/-->
 
 		            <div class="form-group row mb-5">
 		              <div class="col-md-6">
@@ -142,96 +128,6 @@
 		              </div>
 		            </div>
 
-		            <!-- /*<div class="form-group">
-		              <label for="c_create_account" class="text-black" data-bs-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account"> Create an account?</label>
-		              <div class="collapse" id="create_an_account">
-		                <div class="py-2 mb-4">
-		                  <p class="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-		                  <div class="form-group">
-		                    <label for="c_account_password" class="text-black">Account Password</label>
-		                    <input type="email" class="form-control" id="c_account_password" name="c_account_password" placeholder="">
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-
-
-		            <div class="form-group">
-		              <label for="c_ship_different_address" class="text-black" data-bs-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address"> Ship To A Different Address?</label>
-		              <div class="collapse" id="ship_different_address">
-		                <div class="py-2">
-
-		                  <div class="form-group">
-		                    <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
-		                    <select id="c_diff_country" class="form-control">
-		                      <option value="1">Chọn 1 thành phố</option>    
-		                		<option value="2">Hồ Chí Minh</option>    
-		                		<option value="3">Hà Nội</option>    
-		                		<option value="4">Hải Phòng</option>    
-		                		<option value="5">Đà Nẵng</option>    
-		                		<option value="6">Huế</option>    
-		                		<option value="7">Cần Thơ</option>    
-		                		<option value="8">Nghệ An</option>    
-		                		<option value="9">Khác...</option>    
-		                    </select>
-		                  </div>
-
-
-		                  <div class="form-group row">
-		                    <div class="col-md-6">
-		                      <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
-		                    </div>
-		                    <div class="col-md-6">
-		                      <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_lname" name="c_diff_lname">
-		                    </div>
-		                  </div>
-
-		                  <div class="form-group row">
-		                    <div class="col-md-12">
-		                      <label for="c_diff_companyname" class="text-black">Company Name </label>
-		                      <input type="text" class="form-control" id="c_diff_companyname" name="c_diff_companyname">
-		                    </div>
-		                  </div>
-
-		                  <div class="form-group row  mb-3">
-		                    <div class="col-md-12">
-		                      <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_address" name="c_diff_address" placeholder="Số nhà, tên đường">
-		                    </div>
-		                  </div>
-
-		                  <div class="form-group">
-		                    <input type="text" class="form-control" placeholder="Chi tiết địa chỉ VD: Tòa A, chung cư ABC...">
-		                  </div>
-
-		                  <div class="form-group row">
-		                    <div class="col-md-6">
-		                      <label for="c_diff_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_state_country" name="c_diff_state_country">
-		                    </div>
-		                    <div class="col-md-6">
-		                      <label for="c_diff_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
-		                    </div>
-		                  </div>
-
-		                  <div class="form-group row mb-5">
-		                    <div class="col-md-6">
-		                      <label for="c_diff_email_address" class="text-black">Email <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_email_address" name="c_diff_email_address">
-		                    </div>
-		                    <div class="col-md-6">
-		                      <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-		                      <input type="text" class="form-control" id="c_diff_phone" name="c_diff_phone" placeholder="Nhập số điện thoại">
-		                    </div>
-		                  </div>
-
-		                </div>
-
-		              </div>
-		            </div>*/-->
 
 		            <div class="form-group">
 		              <label for="c_order_notes" class="text-black">Ghi chú đơn hàng</label>
@@ -258,7 +154,10 @@
 		              </div>
 		            </div>
 		          </div>
-
+				
+				
+				<form action="${pageContext.request.contextPath}/PaymentServlet" method="post">
+				<input type="hidden" name="action" value="confirmPayment" />
 		          <div class="row mb-5">
 		            <div class="col-md-12">
 		              <h2 class="h3 mb-3 text-black">Your Order</h2>
@@ -269,17 +168,20 @@
 		                    <th>Total</th>
 		                  </thead>
 		                  <tbody>
-		                    <tr>
-		                      <td>Clair Chair <strong class="mx-2">x</strong> 1</td>
-		                      <td>$250.00</td>
-		                    </tr>
-		                    <tr>
-		                      <td>Mono Table <strong class="mx-2">x</strong>   1</td>
-		                      <td>$100.00</td>
-		                    </tr>
+						<c:forEach var="product" items="${products}">
+    						<tr>
+        					<td>${product.name} <strong class="mx-2">x</strong> ${count}</td>
+        					<td>$${price * count}</td>
+    					</tr>
+						</c:forEach>
+
+		                  
+		                 
+		                  
+		                    
 		                    <tr>
 		                      <td class="text-black font-weight-bold"><strong>Tổng giá trị giỏ hàng</strong></td>
-		                      <td class="text-black">$350.00</td>
+		                      <td class="text-black">$${totalPrice}</td>
 		                    </tr>
 		                    <tr>
   								<td class="text-black font-weight-bold"><strong>Giá trị được khấu trừ</strong></td>
@@ -288,7 +190,7 @@
 
 		                    <tr>
 		                      <td class="text-black font-weight-bold"><strong>Tổng giá trị giỏ hàng</strong></td>
-		                      <td class="text-black font-weight-bold"><strong>$0.00</strong></td>
+		                      <td class="text-black font-weight-bold"><strong>$${totalPrice}</strong></td>
 		                    </tr>
 		                  </tbody>
 		                </table>
@@ -324,13 +226,13 @@
 		                </div>
 
 		                <div class="form-group">
-		                  <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='${pageContext.request.contextPath}/jsp/finish.jsp'">Confirm</button>
+		                  <button class="btn btn-black btn-lg py-3 btn-block" type="submit">Confirm</button>
 		                </div>
 
 		              </div>
 		            </div>
 		          </div>
-
+				</form>
 		        </div>
 		      </div>
 		      <!-- </form> -->

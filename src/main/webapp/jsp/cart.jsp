@@ -1,11 +1,9 @@
+<%@ page import="java.util.*,com.model.Favorite, com.model.Product" %>
+<%@ page session="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -46,14 +44,14 @@
 						</li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/shop.jsp">Shop</a></li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/voucher.jsp">Coupon</a></li>
-						<li><a class="nav-link" href="services.html">History</a></li>
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/favo.jsp">Favorite</a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/HistoryServlet">History</a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/FavoriteServlet">Favorite</a></li>
 						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/contact.jsp">Contact us</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/info.jsp"><img src="${pageContext.request.contextPath}/images/user.svg"></a></li>
-						<li><a class="nav-link" href="${pageContext.request.contextPath}/jsp/cart.jsp"><img src="${pageContext.request.contextPath}/images/cart.svg"></a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/InfoServlet"><img src="${pageContext.request.contextPath}/images/user.svg"></a></li>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/CartServlet"><img src="${pageContext.request.contextPath}/images/cart.svg"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -81,126 +79,107 @@
 		
 
 		<div class="untree_co-section before-footer-section">
-            <div class="container">
-              <div class="row mb-5">
-                <form class="col-md-12" method="post">
-                  <div class="site-blocks-table">
-                    <table class="table">
-                      <thead>
+		<%
+    List<Product> products = (List<Product>) request.getAttribute("products");
+    if (products != null && !products.isEmpty()) {
+%>
+<div class="container">
+    <div class="row mb-5">
+        <form class="col-md-12" method="post" action="${pageContext.request.contextPath}/CartServlet">
+            <div class="site-blocks-table">
+                <table class="table">
+                    <thead>
                         <tr>
-                          <th class="product-thumbnail">Hình ảnh</th>
-                          <th class="product-name">Sản phẩm</th>
-                          <th class="product-price">Giá tiền</th>
-                          <th class="product-quantity">Số lượng</th>
-                          <th class="product-total">Tống</th>
-                          <th class="product-remove"><img src="${pageContext.request.contextPath}/images/delete.png" alt="Image" class="img-remove"></th>
+                            <th class="product-thumbnail">Image</th>
+                            <th class="product-name">Name</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-total">Total</th>
+                            <th class="product-remove">Delete</th>
                         </tr>
-                      </thead>
-                      <tbody>
+                    </thead>
+                    <tbody>
+                        <%
+                        for (Product product : products) {
+                            int productId = product.getId();
+                            String productName = product.getName();
+                        %>
                         <tr>
-                          <td class="product-thumbnail">
-                            <img src="${pageContext.request.contextPath}/images/product-1.png" alt="Image" class="img-fluid">
-                          </td>
-                          <td class="product-name">
-                            <h2 class="h5 text-black">Product 1</h2>
-                          </td>
-                          <td>$49.00</td>
-                          <td>
-                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                              <div class="input-group-prepend">
-                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                              </div>
-                              <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                              </div>
-                            </div>
-        
-                          </td>
-                          <td>$49.00</td>
-                          <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                            <td class="product-thumbnail">
+                                <img src="${pageContext.request.contextPath}/images/product-1.png" alt="Image" class="img-fluid">
+                            </td>
+                            <td class="product-name">
+                                <h2 class="h5 text-black"><%= productName %></h2>
+                            </td>
+                            <td>${price}</td>
+                            <td>
+                                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                                    </div>
+                                    <input type="text" class="form-control text-center quantity-amount" value="${count}" placeholder="" aria-label="Quantity" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${tich}</td>
+                            <td>
+                                <form action="${pageContext.request.contextPath}/CartServlet" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="<%= productId %>">
+                                    <input type="hidden" name="action" value="remove">
+                                    <button type="submit" class="btn btn-black btn-sm">X</button>
+                                </form>
+                            </td>
                         </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<%
         
-                        <tr>
-                          <td class="product-thumbnail">
-                            <img src="${pageContext.request.contextPath}/images/product-2.png" alt="Image" class="img-fluid">
-                          </td>
-                          <td class="product-name">
-                            <h2 class="h5 text-black">Product 2</h2>
-                          </td>
-                          <td>$49.00</td>
-                          <td>
-                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                              <div class="input-group-prepend">
-                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                              </div>
-                              <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                              </div>
-                            </div>
-        
-                          </td>
-                          <td>$49.00</td>
-                          <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </form>
-              </div>
-        
+    } else {
+%>
+<p>Giỏ hàng của bạn đang trống.</p>
+<%
+    }
+%>
+	
+	
+			
               <div class="row">
                 <div class="col-md-6">
                   <div class="row mb-5">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                      <button class="btn btn-black btn-sm btn-block">Update Cart</button>
-                    </div>
                     <div class="col-md-6">
                       <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label class="text-black h4" for="coupon">Mã giảm giá</label>
-                      <p>Nhập mã giảm giá nếu có.</p>
-                    </div>
-                    <div class="col-md-8 mb-3 mb-md-0">
-                      <input type="text" class="form-control py-3" id="coupon" placeholder="Mã giảm giá">
-                    </div>
-                    <div class="col-md-4">
-                      <button class="btn btn-black">Apply</button>
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="col-md-6 pl-5">
                   <div class="row justify-content-end">
                     <div class="col-md-7">
                       <div class="row">
                         <div class="col-md-12 text-right border-bottom mb-5">
-                          <h3 class="text-black h4 text-uppercase">Tổng giá trị giỏ hàng</h3>
+                          <h3 class="text-black h4 text-uppercase">Total Cart</h3>
                         </div>
                       </div>
-                      <div class="row mb-3">
-                        <div class="col-md-6">
-                          <span class="text-black">Giá gốc</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
-                        </div>
-                      </div>
+                      
                       <div class="row mb-5">
                         <div class="col-md-6">
-                          <span class="text-black">Tổng tiền</span>
+                          <span class="text-black">Total</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
+                          <strong class="text-black">${totalPrice}</strong>
                         </div>
                       </div>
         
                       <div class="row">
                         <div class="col-md-12">
-                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='${pageContext.request.contextPath}/jsp/payment.jsp'">Tiến hành thanh toán</button>
+                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='PaymentServlet'">Start Checkout</button>
                         </div>
                       </div>
                     </div>

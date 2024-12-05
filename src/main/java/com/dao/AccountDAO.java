@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Account;
+import com.model.Color;
 import com.util.DBUtil;
 
 
@@ -28,13 +29,41 @@ public class AccountDAO {
             pstmt.setString(5, acc.getPhone());
             pstmt.setString(6, acc.getBirthday());
             pstmt.setString(7, acc.getGender());
-            pstmt.setString(8, acc.getRole());
+            pstmt.setString(8, "");
             pstmt.setString(9, acc.getImage());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+	
+	public Account getAccountByUsername(String username)
+	{
+		String sqlString="SELECT * FROM ACCOUNT WHERE ACCOUNT.USERNAME = " + username +";";
+		Account account= new Account();
+		try
+		{
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while(rs.next())
+			{
+				account.setId(rs.getInt("id"));
+				account.setUsername(username);
+				account.setPassword(rs.getString("password"));
+				account.setAddress(rs.getString("address"));
+				account.setEmail(rs.getString("email"));
+				account.setBirthday("");
+				account.setGender(rs.getString("gender"));
+				account.setPhone(rs.getString("phone"));
+				account.setRole("");
+				account.setImage("");
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return account;
+	}
 	
 	public List<Account> getAllAccounts() {
         List<Account> accs = new ArrayList<>();

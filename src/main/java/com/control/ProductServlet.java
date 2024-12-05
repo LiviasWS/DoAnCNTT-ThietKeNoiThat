@@ -62,7 +62,7 @@ public class ProductServlet extends HttpServlet {
 				ShowProductBySearching(request, response);
 				break;
 			case "Filter":
-				ShowProductByFilter(request, response);
+				//ShowProductByFilter(request, response);
 			default: 
 				break;
 		}

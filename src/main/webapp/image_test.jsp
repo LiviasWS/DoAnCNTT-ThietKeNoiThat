@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<p>Account ID: ${accountID}</p>
+	<p>Count: ${count}</p>
 </body>
 </html>

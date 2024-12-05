@@ -166,5 +166,32 @@ public class ProductDAO
 		}
 		return products;
 	}
-	
+	public Product getProductByID2(int id)
+	{
+		String sqlString = "SELECT * FROM PRODUCT WHERE ID = " + id + ";";
+		Product product = new Product();
+		try
+		{
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			while(rs.next())
+			{
+				product.setId(rs.getInt("id"));
+				product.setName(rs.getString("name"));
+				product.setPrice(rs.getString("price"));
+				product.setCategory(rs.getString("category"));
+				product.setCollection(rs.getString("collection"));
+				product.setImage(rs.getString("image"));
+				product.setQuantity(rs.getInt("quantity"));
+				product.setSold(rs.getInt("sold"));	
+				//product.setBuy(rs.getInt("buy")); 
+
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return product;
+	}
 }
