@@ -29,7 +29,7 @@
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation 
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -58,10 +58,10 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
-		<!-- Start Hero Section -->
+		<!-- Start Hero Section 
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
@@ -75,11 +75,11 @@
 						<div class="col-lg-7">
 							<div class="hero-img-wrap">
 								<!--<img src="images/couch.png" class="img-fluid">-->
-							</div>
+							<!--</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		<!-- End Hero Section -->
 
 		

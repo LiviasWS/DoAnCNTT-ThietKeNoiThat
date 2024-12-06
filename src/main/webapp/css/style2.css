@@ -596,6 +596,7 @@ body{
     display: flex;
     align-items: center;
     margin-bottom: 0px;
+    padding-bottom: 20px;
 }
 
 .review-header .review-back-button {

@@ -1,5 +1,7 @@
-<%@ page import="java.util.*,com.model.Favorite, com.model.Product" %>
+<%@ page import="java.util.*,com.model.Cart, com.model.Payment, com.model.PaymentItem" %>
 <%@ page session="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!doctype html>
@@ -19,12 +21,13 @@
 		<link href="${pageContext.request.contextPath}/css/tiny-slider.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 		<link href="${pageContext.request.contextPath}/css/style2.css" rel="stylesheet">
-		<title>FAVO</title>
+		
+		<title>Cart</title>
 	</head>
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation 
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -53,112 +56,68 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
-		<!-- Start Hero Section -->
+		<!-- Start Hero Section
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Favorite</h1>
-								
+								<h1>Cart</h1>
 							</div>
 						</div>
 						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="${pageContext.request.contextPath}/images/couch.png" class="img-fluid">
-							</div>
-						</div>
+							
 						</div>
 					</div>
 				</div>
+			</div> -->
 		<!-- End Hero Section -->
-		
-				<%
-        // Lấy danh sách các sản phẩm yêu thích từ request
-        List<Favorite> favorites = (List<Favorite>) request.getAttribute("favorites");
-		List<Product> products = (List<Product>) request.getAttribute("products");
-        if (favorites != null && !favorites.isEmpty()) {
-        	for (Favorite favorite : favorites) {
-    	%>
-	
-		<div class="untree_co-section before-footer-section">
-            <div class="container">
-              <div class="row mb-5">
-                <form class="col-md-12" method="post">
-                  <div class="site-blocks-table">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th class="product-thumbnail">Hình ảnh</th>
-                          <th class="product-name">Sản phẩm</th>
-                          <th class="product-price">Giá tiền</th>
-                          <th class="product-quantity">Stock</th>
-                          <th class="product-total"></th>
-                          <th class="product-remove"><img src="${pageContext.request.contextPath}/images/delete.png" alt="Image" class="img-remove"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      	<%
-                                    for (Product product : products) {
-                                        int productId = product.getId();
-                                        
-                                        // Lấy thông tin sản phẩm từ cơ sở dữ liệu, ví dụ: tên sản phẩm, giá, tình trạng tồn kho
-                                        String productName = product.getName(); // Thay thế bằng thông tin thực từ database
-                                        String productPrice = product.getPrice();  // Cập nhật thông tin giá thực từ cơ sở dữ liệu
-                                        String stockStatus = "In Stock"; // Thay đổi theo tình trạng thực tế
-                                %>
-                        <tr>
-                          <td class="product-thumbnail">
-                            <img src="${pageContext.request.contextPath}/images/product-1.png" alt="Image" class="img-fluid">
-                          </td>
-                          <td class="product-name">
-                            <h2 class="h5 text-black"><%= productName %></h2>
-                          </td>
-                          <td><%= productPrice %></td>
-                          <td>
-                            In Stock
-        
-                          </td>
-                          <td>
-        					<form action="FavoriteServlet" method="post">
-    							<input type="hidden" name="productId" value="<%= productId %>">
-    							<input type="hidden" name="action" value="update">
-    							<button type="submit" class="btn-add-to-cart">Add to Cart</button>
-							</form>
 
-    						</td>                   
-                          <td>
-                                        <form action="FavoriteServlet" method="post" style="display:inline;">
-                                            <input type="hidden" name="productId" value="<%= productId %>">
-                                            <input type="hidden" name="action" value="remove">
-                                            <button type="submit" class="btn-unlike">
-                                                <img src="${pageContext.request.contextPath}/images/unlike.png" alt="Remove">
-                                            </button>
-                                        </form>
-                                    </td>
-                        </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-            </div>
+		<div class="order-complete-container">
+        <div class="order-complete-header">
+            <h2>Đơn hàng #0${payment.paymentId}</h2>
+        </div>
+        <div class="shipping-details">
+            <p><b>Thông tin vận chuyển</b></p>
+            <p>Đơn vị vận chuyển: Giao hàng tiết kiệm</p>
+            <p class="delivery-status-success">Pay status: ${payment.payStatus}</p>
+            <p>Ngày đặt hàng: ${payment.orderDate}</p>
+        </div>
+        <div class="recipient-details">
+            <p><b>Địa chỉ nhận hàng</b></p>
+            <p>Phone: ${account.phone}</p>
+            <p>Adress: ${account.address}</p>
+        </div>
+        <div class="product-list">
+        	<c:forEach var="item" items="${paymentItems}">
+            <div class="product-item-details">
+            
+            	
+                <div class="product-description">
+        		<span><strong>${item.productName}</strong></span>
+        		<span>X ${item.quantity}</span>
+        		<span>Total: ${item.totalPrice}</span>
+    		</div>
+    		</div>
+</c:forEach>
+   
+        </div>
+        <div class="total-amount">
+            <p><b>Tổng tiền: $${payment.finalAmount}</b></p>
+        </div>
+        <div class="action-buttons">
+            <button class="btn-reorder" onclick="location.href='${pageContext.request.contextPath}/HistoryServlet'">Quay lại</button>
+            <button class="btn-rate" onclick="location.href='${pageContext.request.contextPath}/jsp/review.jsp'">Đánh giá</button>
         </div>
     </div>
-    <%
-        }
-    } else {
-%>
-        <p>Danh sách yêu thích của bạn trống!</p>
-<%
-    }
-%>
-		
 
-		<!-- Start Footer Section -->
+        
+            
+
+		<!-- Start Footer Section
 		<footer class="footer-section">
 			<div class="container relative">
 
@@ -260,7 +219,7 @@
 				</div>
 
 			</div>
-		</footer>
+		</footer> -->
 		<!-- End Footer Section -->	
 
 

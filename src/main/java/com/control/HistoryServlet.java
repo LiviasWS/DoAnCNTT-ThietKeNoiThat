@@ -40,15 +40,18 @@ public class HistoryServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	int accountId = 1; // Lấy ID tài khoản
         PaymentDAO paymentDAO = new PaymentDAO();
-        
         try {
             List<Payment> payments = paymentDAO.getPaymentsWithProducts(accountId);
-            request.setAttribute("payments", payments);
+            List<Favorite> favorites = favoriteDAO.getAllPay(accountId);
+            request.setAttribute("payments", payments);  // payment chứa danh sách productList
+            request.setAttribute("favorites", favorites);
             request.getRequestDispatcher("/jsp/history.jsp").forward(request, response);
+
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi lấy thông tin đơn hàng.");
         }
+        
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

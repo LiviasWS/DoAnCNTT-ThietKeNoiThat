@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -25,7 +25,7 @@
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -54,10 +54,10 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
-		<!-- Start Hero Section -->
+		<!-- Start Hero Section 
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
@@ -75,7 +75,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		<!-- End Hero Section -->
 
 		
@@ -101,19 +101,22 @@
             <c:forEach var="product" items="${payment.productList}">
                 <div class="product-info">
                     <span class="product-title">${product.name}</span>
-                    <span class="product-subtitle"> x1</span>
+                    <span class="product-subtitle">Đơn giá: $ ${product.price}</span>
+
 
                 </div>
                 </c:forEach>
             </div>
             <div class="order-footer">
-                <p class="reward-info">Tổng tiền đơn hàng: <strong>₫${payment.finalAmount}</strong></p>
+            	<p class="reward-info">Tổng số sản phẩm: <strong>${fn:length(payment.productList)}</strong> (sản phẩm)</p>
+
+                <p class="reward-info">Tổng tiền đơn hàng: <strong>$${payment.finalAmount}</strong></p>
                     
                 <div class="action-buttons">
-                
-                    <button class="btn-reorder" onclick="window.location='window.location='${pageContext.request.contextPath}/jsp/order-detail.jsp?paymentId=${payment.paymentId}'">Xem chi tiết</button>
-                    <button class="btn-review" onclick="window.location='window.location='${pageContext.request.contextPath}/jsp/review.jsp?paymentId=${payment.paymentId}'">Đánh giá</button>
-                </div>
+    <button class="btn-reorder" onclick="location.href='${pageContext.request.contextPath}/OrderDetailServlet?payment_id=${payment.paymentId}'">Xem chi tiết</button>
+    <button class="btn-review" onclick="location.href='${pageContext.request.contextPath}/jsp/review.jsp'">Đánh giá</button>
+</div>
+
             </div>
         </div>
         </c:forEach>
@@ -127,13 +130,11 @@
 
 	
 
-		<!-- Start Footer Section -->
+		<!-- Start Footer Section 
 		<footer class="footer-section">
 			<div class="container relative">
 
-				<div class="sofa-img">
-					<img src="${pageContext.request.contextPath}/images/product-2.png" alt="Image" class="img-fluid">
-				</div>
+
 
 				<div class="row">
 					<div class="col-lg-8">
@@ -229,7 +230,7 @@
 				</div>
 
 			</div>
-		</footer>
+		</footer> -->
 		<!-- End Footer Section -->	
 
 

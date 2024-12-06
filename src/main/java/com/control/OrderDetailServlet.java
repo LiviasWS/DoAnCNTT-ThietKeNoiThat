@@ -4,6 +4,7 @@ import com.model.Account;
 import com.model.Favorite;
 import com.model.Product;
 import com.model.Payment;
+import com.model.PaymentItem;
 import com.dao.AccountDAO;
 import com.dao.FavoriteDAO;
 import com.dao.ProductDAO;
@@ -20,16 +21,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/PaymentServlet")
+@WebServlet("/OrderDetailServlet")
 @MultipartConfig
-public class PaymentServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+public class OrderDetailServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
     private AccountDAO accDAO;
     private FavoriteDAO favoriteDAO;
     private ProductDAO productDAO;
     private PaymentDAO paymentDAO;
 
-    public PaymentServlet() {
+    public OrderDetailServlet() {
         super();
         accDAO = new AccountDAO();
         favoriteDAO = new FavoriteDAO();
@@ -38,14 +39,31 @@ public class PaymentServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "list";
-        }
-        switch (action) {
-            default:
-                listInfo(request, response);
-                break;
+    	String paymentIdParam = request.getParameter("payment_id");
+        int accountId = 1; 
+        Account account = accDAO.getAccountById(accountId);
+        request.setAttribute("account", account);
+        if (paymentIdParam != null) {
+            try {
+                int paymentId = Integer.parseInt(paymentIdParam);
+
+                Payment payment = paymentDAO.getPaymentByIdAndAccountId(paymentId, accountId);
+                List<PaymentItem> paymentItems = new ArrayList<>(); 
+
+                paymentItems = paymentDAO.getPaymentItemsByPaymentId(paymentId);
+                
+                for (PaymentItem item : paymentItems) {
+                    Product product = productDAO.getProductByID(item.getProductId());
+                    item.setProductName(product.getName()); 
+                }
+                request.setAttribute("payment", payment);
+                request.setAttribute("paymentItems", paymentItems);
+                request.getRequestDispatcher("/jsp/order-detail.jsp").forward(request, response);
+            } catch (NumberFormatException e) {
+            	System.out.println("Không hiện ");
+            }
+        } else {
+        	System.out.println("Không hiện " );
         }
     }
 
@@ -55,9 +73,7 @@ public class PaymentServlet extends HttpServlet {
             action = "list";
         }
         switch (action) {
-            case "confirmPayment":
-                confirmPayment(request, response);
-                break;
+
             default:
                 doGet(request, response);
                 break;
@@ -65,6 +81,24 @@ public class PaymentServlet extends HttpServlet {
     }
 
     private void listInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String paymentIdParam = request.getParameter("payment_id");
+        System.out.println("Received payment_id: " + paymentIdParam); 
+        if (paymentIdParam != null) {
+            try {
+                int paymentId = Integer.parseInt(paymentIdParam);  
+                System.out.println("Parsed payment_id: " + paymentId); 
+                List<PaymentItem> paymentItems = paymentDAO.getPaymentItemsByPaymentId(paymentId);
+                System.out.println("Payment items: " + paymentItems); 
+                request.setAttribute("paymentItems", paymentItems);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid payment_id format");
+                request.setAttribute("error", "ID thanh toán không hợp lệ.");
+            }
+        } else {
+            System.out.println("Payment ID is missing");
+            request.setAttribute("error", "Không có ID thanh toán.");
+        }
+
         int accountId = 1; 
         Account account = accDAO.getAccountById(accountId);
         request.setAttribute("account", account);
@@ -89,51 +123,12 @@ public class PaymentServlet extends HttpServlet {
                 }
             }
         }
-
+        List<Payment> payments = paymentDAO.getAllPaymentsByAccount(accountId); 
+        request.setAttribute("payments", payments);
         request.setAttribute("products", products);
         request.setAttribute("favorites", favorites);
         request.setAttribute("totalPrice", totalPrice);
-        request.getRequestDispatcher("/jsp/payment.jsp").forward(request, response);
-    }
 
-    private void confirmPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int accountId = 1; 
-
-        String totalPriceParam = request.getParameter("totalPrice");
-        float totalAmount = 0;
-        if (totalPriceParam != null && !totalPriceParam.trim().isEmpty()) {
-            try {
-                totalAmount = Float.parseFloat(totalPriceParam);
-            } catch (NumberFormatException e) {
-                totalAmount = 0;
-            }
-        }
-
-        float discountAmount = 0; 
-        float finalAmount = totalAmount - discountAmount;
-
-        List<Favorite> favorites = favoriteDAO.getAllCartByStatus(accountId);
-        List<Product> products = new ArrayList<>();
-        for (Favorite favorite : favorites) {
-            Product product = productDAO.getProductByID(favorite.getProductId());
-            if (product != null) {
-                products.add(product);
-            }
-        }
-
-        Payment payment = new Payment();
-        payment.setAccountId(accountId);
-        payment.setTotalAmount(totalAmount);
-        payment.setDiscountAmount(discountAmount);
-        payment.setFinalAmount(finalAmount);
-        payment.setPayStatus("completed"); 
-        payment.setPayMethod("cash");
-        payment.setOrderDate(new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date()));
-
-        paymentDAO.addPayment(payment, products);
-
-        favoriteDAO.updateFavoriteStatus("no",1, accountId);
-
-        response.sendRedirect(request.getContextPath() + "/jsp/finish.jsp");
+        request.getRequestDispatcher("/jsp/order-detail.jsp").forward(request, response);
     }
 }

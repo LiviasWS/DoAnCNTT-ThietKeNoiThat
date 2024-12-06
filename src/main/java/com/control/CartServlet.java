@@ -1,8 +1,8 @@
 package com.control;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.dao.FavoriteDAO;
+import com.dao.ProductDAO;
+import com.model.Product;
+import com.model.Favorite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,103 +10,61 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.dao.AccountDAO;
-import com.dao.FavoriteDAO;
-import com.dao.ProductDAO;
-import com.dao.SubImageDAO;
-import com.model.Account;
-import com.model.Favorite;
-import com.model.Product;
-import com.model.SubImage;
-
-/**
- * Servlet implementation class ProductDetailServlet
- */
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    private AccountDAO accDAO;
+    private static final long serialVersionUID = 1L;
     private FavoriteDAO favoriteDAO;
-    
-	ProductDAO productDAO= new ProductDAO();
-	SubImageDAO subImageDAO = new SubImageDAO();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-        accDAO = new AccountDAO(); 
-        favoriteDAO = new FavoriteDAO();
+    private ProductDAO productDAO;
+
+    @Override
+    public void init() throws ServletException {
+    	favoriteDAO = new FavoriteDAO();
+        productDAO = new ProductDAO();
     }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	int accountId = 1;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int accountID = 1;
-        int productID = 2;
-        int count = 1;
-
-        List<Favorite> favorites = favoriteDAO.getAllCartByStatus(accountID);
+        List<Favorite> favorites = favoriteDAO.getAllCartByStatus(accountId);
         List<Product> products = new ArrayList<>();
         float totalPrice = 0;
-        float tich = 0;
 
         for (Favorite favorite : favorites) {
             Product product = productDAO.getProductByID(favorite.getProductId());
             products.add(product);
 
-            float productPrice = Float.parseFloat("100$".replace("$", ""));
-            float itemTotal = productPrice * count;
-            tich = itemTotal; 
-            totalPrice += productPrice * count;
-            
-        }
+            float productPrice = 0;
+            try {
+                productPrice = Float.parseFloat(product.getPrice());
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid price format for product ID: " + product.getId());
+            }
 
-        response.getWriter().append("Served at: ").append(request.getContextPath());
-        request.setAttribute("count", count);
-        request.setAttribute("accountID", accountID);
-        request.setAttribute("productID", productID);
-        request.setAttribute("price", "100$");
+            int productQuantity = favorite.getBuy();
+            System.out.println("Product ID: " + product.getId() + ", Buy quantity: " + productQuantity);
+
+            float itemTotal = productPrice * productQuantity;
+            favorite.setTotalPrice(itemTotal);
+
+            totalPrice += itemTotal;
+        }
 
         request.setAttribute("products", products);
         request.setAttribute("favorites", favorites);
-        request.setAttribute("totalPrice", totalPrice);
-        request.setAttribute("tich", tich);
-
+        request.setAttribute("totalPrice", totalPrice); 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cart.jsp");
         dispatcher.forward(request, response);
-	}
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-	
-	private void SessionExample (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		String address = "/CartServlet";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-		dispatcher.forward(request, response);
-	}
-	
-	private void ShowProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		String address = "product-detail.jsp";
-		int id = Integer.parseInt(request.getParameter("id"));
-		List<SubImage> subImages = subImageDAO.getSubImage(id);
-		Product product = productDAO.getProductByID(id);
-		request.setAttribute("subImages", subImages);
-		request.setAttribute("product", product);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-		dispatcher.forward(request, response);
-	}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+    
 
 }

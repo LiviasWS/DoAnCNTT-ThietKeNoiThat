@@ -39,7 +39,7 @@ public class FavoriteServlet extends HttpServlet{
         
         List<Product> products = new ArrayList<Product>();
         for (Favorite favorite : favorites) {
-			Product product = productDAO.getProductByID2(favorite.getProductId());
+			Product product = productDAO.getProductByID(favorite.getProductId());
 			products.add(product);
 		}
         request.setAttribute("products", products);
