@@ -13,18 +13,16 @@
 </head>
 <body>
 
-    <h2>Chọn số lượng sản phẩm</h2>
-
     <!-- Hiển thị số lượng -->
-    <label for="quantity">Số lượng: </label>
+    <label for="quantity">Quantity: </label>
     <span id="quantity">1</span>
 
     <!-- Nút tăng giảm -->
-    <button onclick="decreaseQuantity()">Giảm</button>
-    <button onclick="increaseQuantity()">Tăng</button>
+    <button onclick="decreaseQuantity()">Decrease</button>
+    <button onclick="increaseQuantity()">Increase</button>
 
     <!-- Nút thêm vào giỏ hàng -->
-    <form id="addToCartForm" action="AddToCartServlet" method="post">
+    <form id="addToCartForm" action="${pageContext.request.contextPath}FunctionTestServlet">
         <input type="hidden" id="cartQuantity" name="quantity" value="1">
         <button type="submit">Add to Cart</button>
     </form>

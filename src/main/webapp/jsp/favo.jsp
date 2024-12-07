@@ -1,4 +1,5 @@
 <%@ page import="java.util.*,com.model.Favorite, com.model.Product" %>
+
 <%@ page session="true" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -24,7 +25,7 @@
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -53,10 +54,10 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
-		<!-- Start Hero Section -->
+		<!-- Start Hero Section
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
@@ -73,92 +74,93 @@
 						</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 		<!-- End Hero Section -->
 		
 				<%
         // Lấy danh sách các sản phẩm yêu thích từ request
-        List<Favorite> favorites = (List<Favorite>) request.getAttribute("favorites");
-		List<Product> products = (List<Product>) request.getAttribute("products");
-        if (favorites != null && !favorites.isEmpty()) {
-        	for (Favorite favorite : favorites) {
-    	%>
-	
-		<div class="untree_co-section before-footer-section">
-            <div class="container">
-              <div class="row mb-5">
-                <form class="col-md-12" method="post">
-                  <div class="site-blocks-table">
+    List<Favorite> favorites = (List<Favorite>) request.getAttribute("favorites");
+    List<Product> products = (List<Product>) request.getAttribute("products");
+    if (favorites != null && !favorites.isEmpty()) {
+%>
+<div class="untree_co-section before-footer-section">
+    <div class="container">
+        <div class="row mb-5">
+            <form class="col-md-12" method="post">
+                <div class="site-blocks-table">
                     <table class="table">
-                      <thead>
-                        <tr>
-                          <th class="product-thumbnail">Hình ảnh</th>
-                          <th class="product-name">Sản phẩm</th>
-                          <th class="product-price">Giá tiền</th>
-                          <th class="product-quantity">Stock</th>
-                          <th class="product-total"></th>
-                          <th class="product-remove"><img src="${pageContext.request.contextPath}/images/delete.png" alt="Image" class="img-remove"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      	<%
-                                    for (Product product : products) {
-                                        int productId = product.getId();
-                                        
-                                        // Lấy thông tin sản phẩm từ cơ sở dữ liệu, ví dụ: tên sản phẩm, giá, tình trạng tồn kho
-                                        String productName = product.getName(); // Thay thế bằng thông tin thực từ database
-                                        String productPrice = product.getPrice();  // Cập nhật thông tin giá thực từ cơ sở dữ liệu
-                                        String stockStatus = "In Stock"; // Thay đổi theo tình trạng thực tế
-                                %>
-                        <tr>
-                          <td class="product-thumbnail">
-                            <img src="${pageContext.request.contextPath}/images/product-1.png" alt="Image" class="img-fluid">
-                          </td>
-                          <td class="product-name">
-                            <h2 class="h5 text-black"><%= productName %></h2>
-                          </td>
-                          <td><%= productPrice %></td>
-                          <td>
-                            In Stock
-        
-                          </td>
-                          <td>
-        					<form action="FavoriteServlet" method="post">
-    							<input type="hidden" name="productId" value="<%= productId %>">
-    							<input type="hidden" name="action" value="update">
-    							<button type="submit" class="btn-add-to-cart">Add to Cart</button>
-							</form>
-
-    						</td>                   
-                          <td>
-                                        <form action="FavoriteServlet" method="post" style="display:inline;">
-                                            <input type="hidden" name="productId" value="<%= productId %>">
-                                            <input type="hidden" name="action" value="remove">
-                                            <button type="submit" class="btn-unlike">
-                                                <img src="${pageContext.request.contextPath}/images/unlike.png" alt="Remove">
-                                            </button>
-                                        </form>
-                                    </td>
-                        </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-            </div>
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">Hình ảnh</th>
+                                <th class="product-name">Sản phẩm</th>
+                                <th class="product-price">Giá tiền</th>
+                                <th class="product-quantity">Stock</th>
+                                <th class="product-total"></th>
+                                <th class="product-remove"><img src="${pageContext.request.contextPath}/images/delete.png" alt="Image" class="img-remove"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                            for (Favorite favorite : favorites) {
+                                int favoriteProductId = favorite.getProductId(); 
+                                for (Product product : products) {
+                                    int productId = product.getId();
+                                    
+                                    
+                                    if (favoriteProductId == productId) {
+                                        String productName = product.getName();
+                                        String productPrice = product.getPrice(); 
+                                        String stockStatus = "In Stock"; 
+                            %>
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <img src="${pageContext.request.contextPath}/images/product-1.png" alt="Image" class="img-fluid">
+                                </td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-black"><%= productName %></h2>
+                                </td>
+                                <td><%= productPrice %></td>
+                                <td>In Stock</td>
+                                <td>
+                                    <form action="FavoriteServlet" method="post">
+                                        <input type="hidden" name="productId" value="<%= productId %>">
+                                        <input type="hidden" name="action" value="update">
+                                        <button type="submit" class="btn-add-to-cart">Add to Cart</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="FavoriteServlet" method="post" style="display:inline;">
+                                        <input type="hidden" name="productId" value="<%= productId %>">
+                                        <input type="hidden" name="action" value="remove">
+                                        <button type="submit" class="btn-unlike">
+                                            <img src="${pageContext.request.contextPath}/images/unlike.png" alt="Remove">
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%
+                                    }
+                                }
+                            }
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
-    <%
-        }
+</div>
+<%
     } else {
 %>
-        <p>Danh sách yêu thích của bạn trống!</p>
+    <p>Danh sách yêu thích của bạn trống!</p>
 <%
     }
 %>
+
 		
 
-		<!-- Start Footer Section -->
+		<!-- Start Footer Section
 		<footer class="footer-section">
 			<div class="container relative">
 
@@ -260,7 +262,7 @@
 				</div>
 
 			</div>
-		</footer>
+		</footer> -->
 		<!-- End Footer Section -->	
 
 

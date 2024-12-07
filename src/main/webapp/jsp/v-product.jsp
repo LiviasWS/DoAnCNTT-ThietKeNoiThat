@@ -29,7 +29,7 @@
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation 
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
@@ -175,7 +175,7 @@
 
 	
 
-		<!-- Start Footer Section -->
+		<!-- Start Footer Section 
 		<footer class="footer-section">
 			<div class="container relative">
 
@@ -277,7 +277,7 @@
 				</div>
 
 			</div>
-		</footer>
+		</footer> -->
 		<!-- End Footer Section -->	
 
 

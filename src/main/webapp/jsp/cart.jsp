@@ -27,7 +27,7 @@
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation 
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -56,10 +56,10 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav>-->
 		<!-- End Header/Navigation -->
 
-		<!-- Start Hero Section -->
+		<!-- Start Hero Section 
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
@@ -73,15 +73,16 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		<!-- End Hero Section -->
 
 		
 
 		<div class="untree_co-section before-footer-section">
 		<%
-    List<Product> products = (List<Product>) request.getAttribute("products");
-    if (products != null && !products.isEmpty()) {
+		List<Product> products = (List<Product>) request.getAttribute("products");
+	    List<Favorite> favorites = (List<Favorite>) request.getAttribute("favorites"); // Lấy danh sách Favorite
+	    if (products != null && !products.isEmpty() && favorites != null) {
 %>
 <div class="container">
     <div class="row mb-5">
@@ -103,6 +104,18 @@
                         for (Product product : products) {
                             int productId = product.getId();
                             String productName = product.getName();
+                            String productPrice = product.getPrice();
+                            int buyQuantity = 0;
+                            float totalPrice = 0;
+                            // Tìm giá trị `Buy` từ danh sách `favorites`
+                            for (Favorite favorite : favorites) {
+                                if (favorite.getProductId() == productId) {
+                                    buyQuantity = favorite.getBuy();
+                                    totalPrice = favorite.getTotalPrice(); 
+                                    break;
+                                }
+                            }
+                            
                         %>
                         <tr>
                             <td class="product-thumbnail">
@@ -111,19 +124,19 @@
                             <td class="product-name">
                                 <h2 class="h5 text-black"><%= productName %></h2>
                             </td>
-                            <td>${price}</td>
+                            <td><%= productPrice %></td>
                             <td>
                                 <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-black decrease" type="button">&minus;</button>
                                     </div>
-                                    <input type="text" class="form-control text-center quantity-amount" value="${count}" placeholder="" aria-label="Quantity" readonly>
+                                    <input type="text" class="form-control text-center quantity-amount" value="<%= buyQuantity %>" placeholder="" aria-label="Quantity" readonly>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-black increase" type="button">&plus;</button>
                                     </div>
                                 </div>
                             </td>
-                            <td>${tich}</td>
+                            <td> <%= totalPrice %></td>
                             <td>
                                 <form action="${pageContext.request.contextPath}/CartServlet" method="post" style="display:inline;">
                                     <input type="hidden" name="productId" value="<%= productId %>">
@@ -143,7 +156,7 @@
         
     } else {
 %>
-<p>Giỏ hàng của bạn đang trống.</p>
+<p>Your cart is empty.</p>
 <%
     }
 %>
@@ -190,7 +203,7 @@
           </div>
 		
 
-		<!-- Start Footer Section -->
+		<!-- Start Footer Section 
 		<footer class="footer-section">
 			<div class="container relative">
 
@@ -292,7 +305,7 @@
 				</div>
 
 			</div>
-		</footer>
+		</footer>-->
 		<!-- End Footer Section -->	
 
 

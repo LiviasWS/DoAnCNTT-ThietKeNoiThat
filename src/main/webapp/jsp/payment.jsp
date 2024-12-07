@@ -26,7 +26,7 @@
 
 	<body>
 
-		<!-- Start Header/Navigation -->
+		<!-- Start Header/Navigation 
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
 			<div class="container">
@@ -55,10 +55,10 @@
 				</div>
 			</div>
 				
-		</nav>
+		</nav> -->
 		<!-- End Header/Navigation -->
 
-		<!-- Start Hero Section -->
+		<!-- Start Hero Section 
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
@@ -72,7 +72,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		<!-- End Hero Section -->
 
 		<div class="untree_co-section">
@@ -129,16 +129,16 @@
 		            </div>
 
 
-		            <div class="form-group">
+		            <!--<div class="form-group">
 		              <label for="c_order_notes" class="text-black">Ghi chú đơn hàng</label>
 		              <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Ghi chú vào đây..."></textarea>
-		            </div>
+		            </div>-->
 
 		          </div>
 		        </div>
 		        <div class="col-md-6">
 
-		          <div class="row mb-5">
+		          <!--<div class="row mb-5">
 		            <div class="col-md-12">
 		              <h2 class="h3 mb-3 text-black">Mã giảm giá</h2>
 		              <div class="p-3 p-lg-5 border bg-white">
@@ -153,7 +153,7 @@
 						<div id="coupon-feedback" class="mt-2 text-danger" style="display: none;">Mã giảm giá đã được áp dụng</div>
 		              </div>
 		            </div>
-		          </div>
+		          </div>-->
 				
 				
 				<form action="${pageContext.request.contextPath}/PaymentServlet" method="post">
@@ -168,12 +168,18 @@
 		                    <th>Total</th>
 		                  </thead>
 		                  <tbody>
+		                  
 						<c:forEach var="product" items="${products}">
-    						<tr>
-        					<td>${product.name} <strong class="mx-2">x</strong> ${count}</td>
-        					<td>$${price * count}</td>
-    					</tr>
-						</c:forEach>
+    <c:forEach var="favorite" items="${favorites}">
+        <c:if test="${product.id == favorite.productId}">
+            <tr>
+                <td>${product.name} <strong class="mx-2">x</strong> ${favorite.buy}</td>
+                <td>$${product.price * favorite.buy}</td>
+            </tr>
+        </c:if>
+    </c:forEach>
+</c:forEach>
+
 
 		                  
 		                 
@@ -239,7 +245,7 @@
 		    </div>
 		  </div>
 
-		<!-- Start Footer Section -->
+		<!-- Start Footer Section
 		<footer class="footer-section">
 			<div class="container relative">
 
@@ -341,7 +347,7 @@
 				</div>
 
 			</div>
-		</footer>
+		</footer> -->
 		<!-- End Footer Section -->	
 
 		<script>
