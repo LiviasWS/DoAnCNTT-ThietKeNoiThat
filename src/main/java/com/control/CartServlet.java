@@ -47,7 +47,9 @@ public class CartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int accountID = 1;
+		HttpSession session = request.getSession(false);
+		int accountID = (int) session.getAttribute("accountID");
+		System.out.println("Account ID: " + accountID);
         int productID = 2;
         int count = 1;
 

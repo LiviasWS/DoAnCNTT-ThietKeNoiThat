@@ -30,11 +30,9 @@ public class SesionTestServletBefore extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
-		session.setAttribute("count", 2);
 		session.setAttribute("accountID", 1);
-		String address = "/SessionTestServlet";
+		String address = "function-test.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

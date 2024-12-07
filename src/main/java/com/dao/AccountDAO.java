@@ -29,8 +29,8 @@ public class AccountDAO {
             pstmt.setString(5, acc.getPhone());
             pstmt.setString(6, acc.getBirthday());
             pstmt.setString(7, acc.getGender());
-            pstmt.setString(8, "");
-            pstmt.setString(9, acc.getImage());
+            pstmt.setString(8, "user");
+            pstmt.setString(9, "");
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class AccountDAO {
 	
 	public Account getAccountByUsername(String username)
 	{
-		String sqlString="SELECT * FROM ACCOUNT WHERE ACCOUNT.USERNAME = " + username +";";
+		String sqlString = "CALL GET_ACCOUNT_BY_USERNAME('"+ username +"');";
 		Account account= new Account();
 		try
 		{
@@ -63,6 +63,14 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 		return account;
+	}
+	
+	public boolean AccountCheck (String username, String password)
+	{
+		Account account = this.getAccountByUsername(username);
+		if(account.getUsername().equals(username) && account.getPassword().equals(password))
+			return true;
+		return false;
 	}
 	
 	public List<Account> getAllAccounts() {

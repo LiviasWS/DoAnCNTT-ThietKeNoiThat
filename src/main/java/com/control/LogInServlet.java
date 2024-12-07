@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dao.AccountDAO;
 import com.model.Account;
@@ -41,13 +42,14 @@ public class LogInServlet extends HttpServlet {
 		}
 		switch(action)
 		{
-			case "signin":
+			case "signOn":
+				signOn(request, response);
 				break;
-			case "signup":
-				signUp(request, response);
+			case "signIn":
+				signIn(request, response);
 				break;
-			case "signupredirect":
-				signUpRedirect(request, response);
+			case "signInRedirect":
+				signInRedirect(request, response);
 				break;
 			default:
 				break;
@@ -62,42 +64,54 @@ public class LogInServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void signUpRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void signInRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		response.sendRedirect("sign-in.jsp");
+		String address = "sign-in.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+		dispatcher.forward(request, response);
 	}
 	
-	private void signIn (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String userName = request.getParameter("username");
+		String address = "sign-on.jsp";
+		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		Account account = accountDAO.getAccountByUsername(userName);
-		if(account.getPassword().equals(password))
-		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("MainMenuServlet");
-			dispatcher.forward(request, response);
-		}
-		response.sendRedirect("sign-in.jsp");
-	}
-	
-	private void signUp (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		String userName = request.getParameter("username");
-		String password = request.getParameter("password");
-		String address = request.getParameter("address");
+		String userAddress = request.getParameter("address");
 		String email = request.getParameter("email");
+		String birthday = request.getParameter("birthday");
 		String gender = request.getParameter("gender");
-		String phone = request.getParameter("address");
+		String phone = request.getParameter("phone");
 		Account account = new Account();
-		account.setUsername(userName);
+		account.setUsername(username);
 		account.setPassword(password);
-		account.setAddress(address);
-		account.setBirthday("");
+		account.setAddress(userAddress);
 		account.setEmail(email);
+		account.setBirthday(birthday);
 		account.setGender(gender);
-		account.setImage("");
+		account.setPhone(phone);
 		accountDAO.addAccount(account);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("log-on.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+		dispatcher.forward(request, response);
+	}
+	
+	private void signOn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String address;
+		String userName = request.getParameter("username");
+		String password = request.getParameter("password");
+		if(accountDAO.AccountCheck(userName, password))
+		{
+			address = "MainMenuServlet";
+		}
+		else
+		{
+			address = "sign-on.jsp";
+		}
+		Account account = accountDAO.getAccountByUsername(userName);
+		int id = account.getId();
+		HttpSession session = request.getSession();
+		session.setAttribute("accountID", id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}
 

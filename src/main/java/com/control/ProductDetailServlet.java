@@ -2,6 +2,7 @@ package com.control;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.CartDAO;
+import com.dao.FeatureDAO;
+import com.dao.FeatureTypeDAO;
 import com.dao.ProductDAO;
 import com.dao.SubImageDAO;
+import com.model.Feature;
+import com.model.FeatureType;
 import com.model.Product;
 import com.model.SubImage;
 
@@ -26,6 +31,8 @@ public class ProductDetailServlet extends HttpServlet {
 	
 	ProductDAO productDAO= new ProductDAO();
 	SubImageDAO subImageDAO = new SubImageDAO();
+	FeatureDAO featureDAO = new FeatureDAO();
+	FeatureTypeDAO featureTypeDAO = new FeatureTypeDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,7 +47,6 @@ public class ProductDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());	
 		ShowProduct(request, response);
 	}
 
@@ -62,12 +68,25 @@ public class ProductDetailServlet extends HttpServlet {
 	private void ShowProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String address = "product-detail.jsp";
-		HttpSession session = request.getSession();
 		int id = Integer.parseInt(request.getParameter("id"));
 		List<SubImage> subImages = subImageDAO.getSubImage(id);
 		Product product = productDAO.getProductByID(id);
 		request.setAttribute("subImages", subImages);
 		request.setAttribute("product", product);
+		Map<FeatureType, List<Feature>> featureMap = featureDAO.getFeatureMapByProductID(id);
+		request.setAttribute("featureMap", featureMap);
+		String currentFeature = request.getParameter("currentFeature");
+		if(currentFeature==null)
+		{
+			currentFeature = "basic";
+			request.setAttribute("currentFeature", currentFeature);
+		}
+		else
+		{
+			Feature feature = featureDAO.getFeatureByName(currentFeature);
+			request.setAttribute("currentImage", feature.getImage());
+			request.setAttribute("currentFeature", currentFeature);
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

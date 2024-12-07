@@ -6,13 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 
+import com.dao.AccountDAO;
 import com.dao.CollectionDAO;
 import com.dao.ColorDAO;
+import com.dao.FeatureDAO;
+import com.dao.FeatureTypeDAO;
 import com.dao.ProductDAO;
 import com.dao.SubImageDAO;
+import com.model.Account;
 import com.model.Collection;
 import com.model.Color;
+import com.model.Feature;
+import com.model.FeatureType;
 import com.model.Product;
 import com.model.SubImage;
 
@@ -23,12 +30,19 @@ public class FuctionTest
 	{
 		// TODO Auto-generated method stub
 		try {
-			SubImageDAO subImageDAO = new SubImageDAO(); 
-			List<SubImage> subimages = subImageDAO.getSubImage(2);
-			for(SubImage subImage : subimages)
+			FeatureDAO featureDAO = new FeatureDAO();
+			FeatureTypeDAO featureTypeDAO = new FeatureTypeDAO();
+			Map<FeatureType, List<Feature>> featureMap = featureDAO.getFeatureMapByProductID(2);
+			for(Map.Entry<FeatureType, List<Feature>> mapEntry : featureMap.entrySet())
 			{
-				System.out.println("Name: "+ subImage.getName());
-				System.out.println("Image: "+subImage.getImage());
+				System.out.println("Feature type name: " + mapEntry.getKey().getName());
+				for(Feature feature : mapEntry.getValue())
+				{
+					System.out.println("Feature ID: " + feature.getId());
+					System.out.println("Feature name: " + feature.getName());
+					System.out.println("Feature image: " + feature.getImage());
+					System.out.println("Feature type: " + feature.getFeatureType());
+				}
 			}
 		}catch(Exception e)
 		{

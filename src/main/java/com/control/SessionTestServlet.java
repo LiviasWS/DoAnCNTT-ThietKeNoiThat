@@ -31,12 +31,10 @@ public class SessionTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String address = "image-test.jsp";
 		HttpSession session = request.getSession();
-		String accountID = (String) session.getAttribute("accountID");
-		int count = (int) session.getAttribute("count");
-		request.setAttribute("accountID", accountID);
-		request.setAttribute("count", count);
-		String address = "image_test.jsp";
+		int accountID = (int) session.getAttribute("accountID");
+		System.out.println(accountID);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

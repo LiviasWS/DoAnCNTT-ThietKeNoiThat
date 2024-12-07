@@ -1,32 +1,53 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="js/function-test.js" ></script>
-	<script type="text/javascript">
-	    const contextPath = "${pageContext.request.contextPath}";
-	</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn số lượng sản phẩm</title>
+    <style>
+        button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-	<form id="filterForm">
-		<ul>
-			<c:forEach var = "color" items="${colors}">
-				<c:choose>
-					<c:when test="${fn:contains(selectedColors, color.id)}">
-						<input type="checkbox" name="color" value="${color.id}" onchange = "colorFilter()" checked>${color.name}<br>
-					</c:when>
-					<c:otherwise>
-						<input type="checkbox" name="color" value="${color.id}" onchange = "colorFilter()">${color.name}<br>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</ul>
-		<h2>${count} option checked</h2>
-	</form>
+
+    <h2>Chọn số lượng sản phẩm</h2>
+
+    <!-- Hiển thị số lượng -->
+    <label for="quantity">Số lượng: </label>
+    <span id="quantity">1</span>
+
+    <!-- Nút tăng giảm -->
+    <button onclick="decreaseQuantity()">Giảm</button>
+    <button onclick="increaseQuantity()">Tăng</button>
+
+    <!-- Nút thêm vào giỏ hàng -->
+    <form id="addToCartForm" action="AddToCartServlet" method="post">
+        <input type="hidden" id="cartQuantity" name="quantity" value="1">
+        <button type="submit">Add to Cart</button>
+    </form>
+
+    <script>
+        // Hàm giảm số lượng
+        function decreaseQuantity() {
+            const quantity = document.getElementById("quantity");
+            let quantityValue = parseInt(quantity.textContent);
+            if (quantityValue > 1) {
+                quantity.textContent = quantityValue - 1;
+                document.getElementById("cartQuantity").value = quantity.textContent;
+            }
+        }
+
+        // Hàm tăng số lượng
+        function increaseQuantity() {
+            const quantity = document.getElementById("quantity");
+            let quantityValue = parseInt(quantity.textContent);
+            quantity.textContent = quantityValue + 1;
+            document.getElementById("cartQuantity").value = quantity.textContent;
+        }
+    </script>
+
 </body>
 </html>

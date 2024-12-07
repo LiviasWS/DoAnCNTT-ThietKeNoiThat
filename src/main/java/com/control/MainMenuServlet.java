@@ -45,13 +45,6 @@ public class MainMenuServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		String userName = request.getParameter("username");
-		String password = request.getParameter("password");
-		AccountDAO accountDAO = new AccountDAO();
-		Account account = accountDAO.getAccountByUsername(userName);
-		session.setAttribute("accountID", account.getId());
 		String address="main-menu.jsp";
 		Map <Collection, List<Product>> collectionBestSellerMap= GetBestSellerByCollection();
 		request.setAttribute("collectionBestSellerMap", collectionBestSellerMap);

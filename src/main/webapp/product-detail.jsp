@@ -46,53 +46,37 @@
                 	<div class="sub__image__item" style= "background-image: url('${pageContext.request.contextPath}${subImage.image}')"></div>
                 </c:forEach>
             </div>
-            <div class="image__container" style="background-image: url('${pageContext.request.contextPath}${product.image}')"></div>
+            <c:choose>
+				    <c:when test="${currentFeature == 'basic'}">
+                		<div class="image__container" style="background-image: url('${pageContext.request.contextPath}${product.image}')"></div>
+				    </c:when>
+				    <c:otherwise>
+				        <div class="image__container" style="background-image: url('${pageContext.request.contextPath}${currentImage}')"></div>
+				    </c:otherwise>
+				</c:choose>
             <div class="infor__container">
-                <p class="infor__name">${product.name}</p>
-                <p class="infor__price">${product.price}</p>
+            	<p class="infor__name">${product.name}</p>
+            	<p class="infor__price">${product.price}</p>
                 <div class="infor__fabric">
-                    <div class="infor__fabric__type__container">
-                        <div class="infor__fabric__type__name">In-Stock Fabrics</div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--silver"></div>
-                            <p>Silver</p>
-                        </div>
-                    </div>
-                    <div class="infor__fabric__type__container">
-                        <div class="infor__fabric__type__name">Flatweave Fabrics</div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--alabaster"></div>
-                            <p>Alabaster</p>
-                        </div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--pewter"></div>
-                            <p>Pewter</p>
-                        </div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--frostgray"></div>
-                            <p>Frost Gray</p>
-                        </div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--graphite"></div>
-                            <p>Graphite</p>
-                        </div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--sand"></div>
-                            <p>Sand</p>
-                        </div>
-                        <div class="infor__fabric__type__item__container">
-                            <div class="infor__fabric__type__item__image infor__fabric__type__item__image--camel"></div>
-                            <p>Camel</p>
-                        </div>
-                    </div>
+                    <c:forEach var = "entry" items = "${featureMap}">
+	                    <div class="infor__fabric__type__container">
+	                    	<div class="infor__fabric__type__name">${entry.key.name}</div>
+	                    	<c:forEach var = "feature" items = "${entry.value}">
+	                    		<div class="infor__fabric__type__item__container" onclick="location.href='${pageContext.request.contextPath }/ProductDetailServlet?id=${product.id}&currentFeature=${feature.name}'">
+	                            	<div class="infor__fabric__type__item__image" style="background-image: url('${pageContext.request.contextPath}${feature.image}');"></div>
+	                            	<p>${feature.name}</p>
+	                        	</div>
+	                    	</c:forEach>
+	                    </div>
+                    </c:forEach>
                 </div>
                 <div class="infor__sub__container">
                     <div class="quantity-container">
                         <button class="decrease" onclick="decreaseQuantity()">-</button>
-                        <input type="text" id="quantity" value="1" readonly>
+                        <input type="text" id="quantity" name="quantity" value="1" readonly>
                         <button class="increase" onclick="increaseQuantity()">+</button>
                     </div>
-                    <button class="addToCart__button">Add to cart</button>
+                    <button class="addToCart__button" onclick="location.href='${pageContext.request.contextPath}/CartServlet?productID=${product.id}'">Add to cart</button>
                 </div>
             </div>
         </div>
