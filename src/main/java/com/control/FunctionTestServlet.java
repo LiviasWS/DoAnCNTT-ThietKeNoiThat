@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -16,8 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.AccountDAO;
 import com.dao.ColorDAO;
+import com.dao.FeatureDAO;
+import com.dao.ProductDAO;
+import com.dao.SubImageDAO;
 import com.model.Account;
 import com.model.Color;
+import com.model.Feature;
+import com.model.FeatureType;
+import com.model.Product;
+import com.model.SubImage;
 
 /**
  * Servlet implementation class FunctionTestServlet
@@ -45,7 +53,7 @@ public class FunctionTestServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if(action == null)
 		{
-			action = "init";
+			action = "jsTest";
 		}
 		switch(action)
 		{
@@ -59,7 +67,10 @@ public class FunctionTestServlet extends HttpServlet {
 				signInRedirect(request, response);
 				break;
 			case "jsTest":
-				jsTest(request, response);
+				ShowProduct(request, response);
+				break;
+			case "addToCart":
+				addToCart(request, response);
 				break;
 			default:
 				break;
@@ -74,10 +85,45 @@ public class FunctionTestServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
+	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		int cartQuantity =  Integer.parseInt(request.getParameter("cartQuantity"));
+		System.out.println("Cart quantity: " + cartQuantity);
+	}
+	
 	private void jsTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		System.out.println("Quantity: " + quantity);
+	}
+	
+	private void ShowProduct (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		SubImageDAO subImageDAO = new SubImageDAO();
+		ProductDAO productDAO = new ProductDAO();
+		FeatureDAO featureDAO = new FeatureDAO();
+		String address = "product-detail.jsp";
+		int id = 2;
+		List<SubImage> subImages = subImageDAO.getSubImage(id);
+		Product product = productDAO.getProductByID(id);
+		request.setAttribute("subImages", subImages);
+		request.setAttribute("product", product);
+		Map<FeatureType, List<Feature>> featureMap = featureDAO.getFeatureMapByProductID(id);
+		request.setAttribute("featureMap", featureMap);
+		String currentFeature = request.getParameter("currentFeature");
+		if(currentFeature==null)
+		{
+			currentFeature = "basic";
+			request.setAttribute("currentFeature", currentFeature);
+		}
+		else
+		{
+			Feature feature = featureDAO.getFeatureByName(currentFeature);
+			request.setAttribute("currentImage", feature.getImage());
+			request.setAttribute("currentFeature", currentFeature);
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+		dispatcher.forward(request, response);
 	}
 	
 	private void signInRedirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -113,15 +159,15 @@ public class FunctionTestServlet extends HttpServlet {
 	
 	private void signOn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String address;
-		String userName = request.getParameter("username");
-		String password = request.getParameter("password");
-		if(accountDAO.AccountCheck(userName, password))
-			address = "MainMenuServlet";
-		else
-			address = "sign-on.jsp";
-		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-		dispatcher.forward(request, response);
+		String username = (String) request.getParameter("username");
+		String password = (String) request.getParameter("password");
+		System.out.println("User name: " + username);
+		System.out.println("Password: " + password);
+		Account account = accountDAO.getAccountByUsername(username);
+		String accountUserName = account.getUsername();
+		String accountPassword = account.getPassword();
+		System.out.println("Account username: " + accountUserName);
+		System.out.println("Account password: " + accountPassword);
 	}
 	
 	private void solveProblem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

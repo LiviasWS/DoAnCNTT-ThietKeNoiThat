@@ -28,25 +28,12 @@ public class FuctionTest
 	
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
-		try {
-			FeatureDAO featureDAO = new FeatureDAO();
-			FeatureTypeDAO featureTypeDAO = new FeatureTypeDAO();
-			Map<FeatureType, List<Feature>> featureMap = featureDAO.getFeatureMapByProductID(2);
-			for(Map.Entry<FeatureType, List<Feature>> mapEntry : featureMap.entrySet())
-			{
-				System.out.println("Feature type name: " + mapEntry.getKey().getName());
-				for(Feature feature : mapEntry.getValue())
-				{
-					System.out.println("Feature ID: " + feature.getId());
-					System.out.println("Feature name: " + feature.getName());
-					System.out.println("Feature image: " + feature.getImage());
-					System.out.println("Feature type: " + feature.getFeatureType());
-				}
-			}
-		}catch(Exception e)
+		FeatureDAO featureDAO = new FeatureDAO();
+		Map<Feature, String> productImageByFeatureMap = featureDAO.getProductImageByFeatureMap(2);
+		for(Map.Entry<Feature, String> entry : productImageByFeatureMap.entrySet())
 		{
-			e.printStackTrace();
+			System.out.println("Feature: " + entry.getKey().getName());
+			System.out.println("Image: " + entry.getValue());
 		}
 	}
 	

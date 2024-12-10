@@ -3,7 +3,8 @@
 <html>
     <head>
         <title>Search Page</title>
-        <link rel="stylesheet" href="css/product-detail.css"> 
+        <link rel="stylesheet" href="css/product-detail.css">
+        <script src="product-detail.js" defer></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body>
@@ -40,7 +41,7 @@
             </ul>
         </header>
         <hr>
-        <div class="content__container">
+        <form action="${pageContext.request.contextPath}/CartServlet" class="content__container">
             <div class="sub__image__container">
                 <c:forEach var= "subImage" items = "${subImages}">
                 	<div class="sub__image__item" style= "background-image: url('${pageContext.request.contextPath}${subImage.image}')"></div>
@@ -71,15 +72,17 @@
                     </c:forEach>
                 </div>
                 <div class="infor__sub__container">
-                    <div class="quantity-container">
-                        <button class="decrease" onclick="decreaseQuantity()">-</button>
-                        <input type="text" id="quantity" name="quantity" value="1" readonly>
-                        <button class="increase" onclick="increaseQuantity()">+</button>
-                    </div>
-                    <button class="addToCart__button" onclick="location.href='${pageContext.request.contextPath}/CartServlet?productID=${product.id}'">Add to cart</button>
+			        <div class="quantity-container">
+			            <div class="quantity-container">
+				            <button class="decrease" onclick="decreaseQuantity()">-</button>
+				            <input type="number" id="quantity" name="quantity" value="1" readonly>
+				            <button class="increase" onclick="increaseQuantity()">+</button>
+				        </div>
+			        </div>
+			        <button type="submit" class="addToCart__button">Add to cart</button>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="review__container">
             <div class="review__grade__container">
                 <div class="review__grade__avergrade__container">

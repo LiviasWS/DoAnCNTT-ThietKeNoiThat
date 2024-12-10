@@ -37,32 +37,28 @@ public class AccountDAO {
         }
     }
 	
-	public Account getAccountByUsername(String username)
-	{
-		String sqlString = "CALL GET_ACCOUNT_BY_USERNAME('"+ username +"');";
-		Account account= new Account();
-		try
-		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlString);
-			while(rs.next())
-			{
-				account.setId(rs.getInt("id"));
-				account.setUsername(username);
-				account.setPassword(rs.getString("password"));
-				account.setAddress(rs.getString("address"));
-				account.setEmail(rs.getString("email"));
-				account.setBirthday("");
-				account.setGender(rs.getString("gender"));
-				account.setPhone(rs.getString("phone"));
-				account.setRole("");
-				account.setImage("");
-			}
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return account;
+	public Account getAccountByUsername(String username) {
+	    String sqlString = "CALL GET_ACCOUNT_BY_USERNAME('" + username + "');";
+	    Account account = null; 
+	    try (Statement stmt = connection.createStatement();
+	         ResultSet rs = stmt.executeQuery(sqlString)) {
+	        if (rs.next()) { 
+	            account = new Account();
+	            account.setId(rs.getInt("id"));
+	            account.setUsername(username);
+	            account.setPassword(rs.getString("password"));
+	            account.setAddress(rs.getString("address"));
+	            account.setEmail(rs.getString("email"));
+	            account.setBirthday(rs.getString("birthday"));
+	            account.setGender(rs.getString("gender"));
+	            account.setPhone(rs.getString("phone"));
+	            account.setRole(rs.getString("role"));
+	            account.setImage("");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return account; 
 	}
 	
 	public boolean AccountCheck (String username, String password)
