@@ -75,6 +75,8 @@ public class ProductDetailServlet extends HttpServlet {
 		request.setAttribute("product", product);
 		Map<FeatureType, List<Feature>> featureMap = featureDAO.getFeatureMapByProductID(id);
 		request.setAttribute("featureMap", featureMap);
+		Map<String, String> productImageByFeatureName = featureDAO.getProductImageByFeatureNameMap(id);
+		request.setAttribute("productImageByFeatureNameMap", productImageByFeatureName);
 		String currentFeature = request.getParameter("currentFeature");
 		if(currentFeature==null)
 		{

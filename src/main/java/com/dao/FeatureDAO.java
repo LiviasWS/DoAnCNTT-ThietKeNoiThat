@@ -26,9 +26,9 @@ public class FeatureDAO
 		connection = DBUtil.getConnection();
 	}
 	
-	public Map<Feature, String> getProductImageByFeatureMap(int productID)
+	public Map<String, String> getProductImageByFeatureNameMap(int productID)
 	{
-		Map<Feature, String> productImageByFeatureMap = new HashMap<>();
+		Map<String, String> productImageByFeatureMap = new HashMap<>();
 		String sqlString = "SELECT * FROM FEATURE_MANAGE WHERE PRODUCT = " + productID + ";";
 		try
 		{
@@ -39,7 +39,7 @@ public class FeatureDAO
 				int featureID = rs.getInt("feature");
 				String image = rs.getString("image");
 				Feature feature = this.getFeatureByID(featureID);
-				productImageByFeatureMap.put(feature, image);
+				productImageByFeatureMap.put(feature.getName(), image);
 			}
 		}
 		catch(Exception ex)

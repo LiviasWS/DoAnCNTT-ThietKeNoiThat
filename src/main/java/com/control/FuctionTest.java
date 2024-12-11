@@ -29,10 +29,10 @@ public class FuctionTest
 	public static void main(String[] args) 
 	{
 		FeatureDAO featureDAO = new FeatureDAO();
-		Map<Feature, String> productImageByFeatureMap = featureDAO.getProductImageByFeatureMap(2);
-		for(Map.Entry<Feature, String> entry : productImageByFeatureMap.entrySet())
+		Map<String, String> productImageByFeatureMap = featureDAO.getProductImageByFeatureNameMap(2);
+		for(Map.Entry<String, String> entry : productImageByFeatureMap.entrySet())
 		{
-			System.out.println("Feature: " + entry.getKey().getName());
+			System.out.println("Feature: " + entry.getKey());
 			System.out.println("Image: " + entry.getValue());
 		}
 	}

@@ -42,19 +42,15 @@
         </header>
         <hr>
         <form action="${pageContext.request.contextPath}/CartServlet" class="content__container">
+        	<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
+        	<input type="hidden" id="feature" name="feature" value="none">
+        	<input type="hidden" id="image" name="image" value="none">
             <div class="sub__image__container">
                 <c:forEach var= "subImage" items = "${subImages}">
                 	<div class="sub__image__item" style= "background-image: url('${pageContext.request.contextPath}${subImage.image}')"></div>
                 </c:forEach>
             </div>
-            <c:choose>
-				    <c:when test="${currentFeature == 'basic'}">
-                		<div class="image__container" style="background-image: url('${pageContext.request.contextPath}${product.image}')"></div>
-				    </c:when>
-				    <c:otherwise>
-				        <div class="image__container" style="background-image: url('${pageContext.request.contextPath}${currentImage}')"></div>
-				    </c:otherwise>
-				</c:choose>
+            <div id="productImage" class="image__container" style="background-image: url('${pageContext.request.contextPath}${product.image}')"></div>
             <div class="infor__container">
             	<p class="infor__name">${product.name}</p>
             	<p class="infor__price">${product.price}</p>
@@ -63,7 +59,8 @@
 	                    <div class="infor__fabric__type__container">
 	                    	<div class="infor__fabric__type__name">${entry.key.name}</div>
 	                    	<c:forEach var = "feature" items = "${entry.value}">
-	                    		<div class="infor__fabric__type__item__container" onclick="location.href='${pageContext.request.contextPath }/ProductDetailServlet?id=${product.id}&currentFeature=${feature.name}'">
+	                    		<div class="infor__fabric__type__item__container" onclick="changeProductImage('${productImageByFeatureNameMap[feature.name]}','${feature.name}')">
+>
 	                            	<div class="infor__fabric__type__item__image" style="background-image: url('${pageContext.request.contextPath}${feature.image}');"></div>
 	                            	<p>${feature.name}</p>
 	                        	</div>
