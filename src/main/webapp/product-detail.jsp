@@ -45,6 +45,7 @@
         	<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
         	<input type="hidden" id="feature" name="feature" value="none">
         	<input type="hidden" id="image" name="image" value="none">
+        	<input type="hidden" id="productID" name="productID" value="${product.id}" >
             <div class="sub__image__container">
                 <c:forEach var= "subImage" items = "${subImages}">
                 	<div class="sub__image__item" style= "background-image: url('${pageContext.request.contextPath}${subImage.image}')"></div>
@@ -60,7 +61,6 @@
 	                    	<div class="infor__fabric__type__name">${entry.key.name}</div>
 	                    	<c:forEach var = "feature" items = "${entry.value}">
 	                    		<div class="infor__fabric__type__item__container" onclick="changeProductImage('${productImageByFeatureNameMap[feature.name]}','${feature.name}')">
->
 	                            	<div class="infor__fabric__type__item__image" style="background-image: url('${pageContext.request.contextPath}${feature.image}');"></div>
 	                            	<p>${feature.name}</p>
 	                        	</div>

@@ -28,12 +28,13 @@ public class FuctionTest
 	
 	public static void main(String[] args) 
 	{
-		FeatureDAO featureDAO = new FeatureDAO();
-		Map<String, String> productImageByFeatureMap = featureDAO.getProductImageByFeatureNameMap(2);
-		for(Map.Entry<String, String> entry : productImageByFeatureMap.entrySet())
+		ProductDAO productDAO = new ProductDAO();
+		String[] materials = {"Metal", "Wood"};
+		List<Product> products = productDAO.getProductByMaterialList(materials);
+		System.out.println("Product List:");
+		for(Product product : products)
 		{
-			System.out.println("Feature: " + entry.getKey());
-			System.out.println("Image: " + entry.getValue());
+			System.out.println("Id: " + product.getId() + " Name: " + product.getName());
 		}
 	}
 	

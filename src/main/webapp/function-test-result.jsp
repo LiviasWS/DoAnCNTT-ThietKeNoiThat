@@ -8,10 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<ul>
-		<c:forEach var="selectedColor" items="${selectedColors}">
-			<p>${selectedColor}</p><br>
-		</c:forEach>
-	</ul>
+	<form id="filterForm" action="FunctionTestServlet">
+		<input type="checkbox" name="color" value="red" onchange="applyFilter()">
+		<input type="checkbox" name="color" value="blue" onchange="applyFilter()">
+		<input type="checkbox" name="color" value="yellow" onchange="applyFilter()">
+		<input type="checkbox" name="color" value="black" onchange="applyFilter()">
+		<input type="checkbox" name="color" value="white" onchange="applyFilter()">
+		<button type="submit">Submit</button>
+	</form>
 </body>
 </html>
