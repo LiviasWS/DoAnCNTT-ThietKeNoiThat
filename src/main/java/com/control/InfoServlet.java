@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import java.io.File;
@@ -62,13 +63,15 @@ public class InfoServlet extends HttpServlet{
     }
     
     private void listInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int accountId = 2; 
+    	HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID");
         Account account = accDAO.getAccountById(accountId);
         request.setAttribute("account", account);
         request.getRequestDispatcher("/jsp/info.jsp").forward(request, response);
     }
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int accountId = 2; // Sử dụng cùng một ID hoặc lấy từ session
+    	HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID");
         Account account = accDAO.getAccountById(accountId);
         request.setAttribute("account", account);
         request.getRequestDispatcher("/jsp/info-edit.jsp").forward(request, response);

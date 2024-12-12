@@ -17,7 +17,7 @@ public class FavoriteDAO {
 	
 	public void addFavo(Favorite fav) {
         try {
-            String query = "INSERT INTO favorite (ACCOUNT_ID, PRODUCT_ID, BUY) VALUES (?, ?, ?)";
+            String query = "INSERT INTO favorite (ACCOUNT_ID, PRODUCT_ID, STATUS, BUY) VALUES (?, ?, 'added', ?)";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1, fav.getAccountId());
             stmt.setInt(2, fav.getProductId());
@@ -152,5 +152,20 @@ public class FavoriteDAO {
             e.printStackTrace();
         }
         return false;
+    }
+	public int getFavoQuantityByAccountId(int accountId) {
+        int favoQuantity  = 0;
+        String sql = "SELECT COUNT(*) AS total_favorites FROM favorite WHERE account_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                	favoQuantity  = rs.getInt("total_favorites");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return favoQuantity;
     }
 }

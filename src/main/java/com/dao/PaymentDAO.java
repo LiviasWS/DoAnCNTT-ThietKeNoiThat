@@ -24,7 +24,6 @@ public class PaymentDAO {
     }
     public void addPayment(Payment pay, List<Product> products) {
         try {
-            // Tính tổng giá trị cho các sản phẩm trong payment_items
             float totalAmount = 0;
 
             List<Favorite> favorites = favoriteDAO.getAllCartByStatus(pay.getAccountId());
@@ -37,39 +36,35 @@ public class PaymentDAO {
             stmt.setString(4, pay.getOrderDate());
             stmt.executeUpdate();
 
-            // Lấy ID của payment đã chèn
             ResultSet rs = stmt.getGeneratedKeys();
             int paymentId = 0;
             if (rs.next()) {
                 paymentId = rs.getInt(1);
             }
 
-            // Chèn sản phẩm vào payment_items và tính tổng giá trị
             for (Favorite favorite : favorites) {
                 for (Product product : products) {
                     if (product.getId() == favorite.getProductId()) {
-                        // Tính total_price cho mỗi sản phẩm
                         float totalPrice = favorite.getBuy() * Float.parseFloat(product.getPrice());
-                        totalAmount += totalPrice;  // Cộng dồn vào totalAmount
+                        totalAmount += totalPrice; 
 
 
                         String productQuery = "INSERT INTO payment_items (PAYMENT_ID, PRODUCT_ID, QUANTITY, UNIT_PRICE, TOTAL_PRICE) VALUES (?, ?, ?, ?, ?)";
                         PreparedStatement productStmt = connection.prepareStatement(productQuery);
                         productStmt.setInt(1, paymentId);
                         productStmt.setInt(2, product.getId());
-                        productStmt.setInt(3, favorite.getBuy());  // Số lượng
-                        productStmt.setFloat(4, Float.parseFloat(product.getPrice()));  // Giá sản phẩm
-                        productStmt.setFloat(5, totalPrice);  // Tổng giá trị cho sản phẩm
-                        productStmt.executeUpdate();  // Thực thi câu lệnh chèn
+                        productStmt.setInt(3, favorite.getBuy());  
+                        productStmt.setFloat(4, Float.parseFloat(product.getPrice()));  
+                        productStmt.setFloat(5, totalPrice);  
+                        productStmt.executeUpdate();  
                     }
                 }
             }
 
-            // Cập nhật lại total_amount trong bảng payment sau khi chèn payment_items
             String updateQuery = "UPDATE payment SET TOTAL_AMOUNT = ? WHERE PAYMENT_ID = ?";
             try (PreparedStatement updateStmt = connection.prepareStatement(updateQuery)) {
-                updateStmt.setFloat(1, totalAmount);  // Cập nhật total_amount
-                updateStmt.setInt(2, paymentId);  // ID của payment
+                updateStmt.setFloat(1, totalAmount);  
+                updateStmt.setInt(2, paymentId);  
                 updateStmt.executeUpdate();
             }
 
@@ -113,10 +108,8 @@ public class PaymentDAO {
                 product.setName(rs.getString("PRODUCT_NAME"));
                 product.setPrice(String.valueOf(rs.getFloat("PRICE")));
 
-                // Lấy giá trị quantity (buy) từ bảng payment_items
                 int buyQuantity = rs.getInt("BUY");
 
-                // Gán buyQuantity vào Favorite hoặc xử lý logic của bạn ở đây
 
                 payment.getProductList().add(product);
             }
@@ -288,6 +281,95 @@ public class PaymentDAO {
         
         return items;
     }
+    public int getTotalOrdersByAccountId(int accountId) {
+        int totalOrders = 0;
+        String sql = "SELECT COUNT(PAYMENT_ID) AS TOTAL_ORDERS FROM payment WHERE ACCOUNT_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    totalOrders = rs.getInt("TOTAL_ORDERS");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalOrders;
+    }
+    
+    public int getTotalQuantityByAccountId(int accountId) {
+        int totalQuantity  = 0;
+        String sql = "SELECT SUM(pi.QUANTITY) AS total_quantity FROM payment_items pi JOIN payment p ON pi.PAYMENT_ID = p.PAYMENT_ID WHERE p.ACCOUNT_ID = ? GROUP BY p.ACCOUNT_ID";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                	totalQuantity  = rs.getInt("total_quantity");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalQuantity;
+    }
+    public float getTotalSpentByAccountId(int accountId) {
+        float totalSpent = 0;
+        String sql = "SELECT SUM(FINAL_AMOUNT) AS total_spent FROM payment WHERE ACCOUNT_ID = ?";
 
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
 
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    totalSpent = rs.getFloat("total_spent");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalSpent;
+    }
+    public List<Payment> getPaymentDataByAccountId(int accountId) {
+        List<Payment> payments = new ArrayList<>();
+        String sql = "SELECT ORDER_DATE, SUM(FINAL_AMOUNT) AS total_amount FROM payment WHERE ACCOUNT_ID = ? GROUP BY ORDER_DATE";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Payment payment = new Payment();
+                    payment.setOrderDate(rs.getString("ORDER_DATE"));
+                    payment.setFinalAmount(rs.getFloat("total_amount"));
+                    payments.add(payment);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return payments;
+    }
+    public float getTotalAmountByAccountAndDate(int accountId, String orderDate) throws SQLException {
+        String sql = "SELECT SUM(FINAL_AMOUNT) AS total_amount FROM payment WHERE account_id = ? AND order_date = ?";
+        float totalAmount = 0.0f;
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+            ps.setString(2, orderDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    totalAmount = rs.getFloat("total_amount");
+                    if (rs.wasNull()) {
+                        totalAmount = 0.0f;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalAmount;
+    }
 }

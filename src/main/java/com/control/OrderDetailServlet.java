@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class OrderDetailServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String paymentIdParam = request.getParameter("payment_id");
-        int accountId = 1; 
+    	HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID");
         Account account = accDAO.getAccountById(accountId);
         request.setAttribute("account", account);
         if (paymentIdParam != null) {
@@ -99,7 +101,8 @@ public class OrderDetailServlet extends HttpServlet{
             request.setAttribute("error", "Không có ID thanh toán.");
         }
 
-        int accountId = 1; 
+        HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID"); 
         Account account = accDAO.getAccountById(accountId);
         request.setAttribute("account", account);
 

@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +66,8 @@ public class PaymentServlet extends HttpServlet {
     }
 
     private void listInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int accountId = 1; 
+    	HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID");
         Account account = accDAO.getAccountById(accountId);
         request.setAttribute("account", account);
 
@@ -97,7 +99,8 @@ public class PaymentServlet extends HttpServlet {
     }
 
     private void confirmPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int accountId = 1; 
+    	HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID"); 
 
         String totalPriceParam = request.getParameter("totalPrice");
         float totalAmount = 0;

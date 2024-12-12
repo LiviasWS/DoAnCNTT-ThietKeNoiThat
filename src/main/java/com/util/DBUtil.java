@@ -15,7 +15,7 @@ public class DBUtil {
                 String driver = "com.mysql.cj.jdbc.Driver";
                 String url = "jdbc:mysql://localhost:3306/ql_shop_noithat";
                 String user = "root";
-                String password = "TM-phuc0304";
+                String password = "1234";
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
             } catch (ClassNotFoundException | SQLException e) {

@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,12 +39,14 @@ public class HistoryServlet extends HttpServlet{
         paymentDAO = new PaymentDAO();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	int accountId = 1; // Lấy ID tài khoản
+    	HttpSession session = request.getSession(false);
+    	int accountId = (int) session.getAttribute("accountID");
+    	
         PaymentDAO paymentDAO = new PaymentDAO();
         try {
             List<Payment> payments = paymentDAO.getPaymentsWithProducts(accountId);
             List<Favorite> favorites = favoriteDAO.getAllPay(accountId);
-            request.setAttribute("payments", payments);  // payment chứa danh sách productList
+            request.setAttribute("payments", payments);  
             request.setAttribute("favorites", favorites);
             request.getRequestDispatcher("/jsp/history.jsp").forward(request, response);
 

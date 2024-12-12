@@ -7,6 +7,9 @@ public class Favorite {
     private int buy;
     private float totalPrice;
     
+    public Favorite() {
+    }
+    
     public Favorite(int accountId, int productId) {
         this.accountId = accountId;
         this.productId = productId;
