@@ -16,13 +16,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+//1233
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private FavoriteDAO favoriteDAO;
     private ProductDAO productDAO;
 
+    
     @Override
     public void init() throws ServletException {
     	favoriteDAO = new FavoriteDAO();
