@@ -23,8 +23,8 @@ public class FavoriteServlet extends HttpServlet{
     private FavoriteDAO favoriteDAO;
     private ProductDAO productDAO;
 
-    @Override
-    public void init() throws ServletException {
+    public FavoriteServlet() {
+    	super();
         favoriteDAO = new FavoriteDAO(); 
         productDAO = new ProductDAO();
     }

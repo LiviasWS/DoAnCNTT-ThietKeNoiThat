@@ -1,5 +1,5 @@
 package com.model;
-
+//1111
 public class Favorite {
 	private int accountId;
     private int productId;
