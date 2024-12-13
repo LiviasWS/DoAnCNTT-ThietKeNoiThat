@@ -16,14 +16,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-//1233
+
 @WebServlet("/CartServlet")
-public class CartServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+public class ViewCartServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
     private FavoriteDAO favoriteDAO;
     private ProductDAO productDAO;
 
-    public CartServlet() {
+    
+    public ViewCartServlet() {
     	super();
     	favoriteDAO = new FavoriteDAO();
         productDAO = new ProductDAO();
@@ -32,34 +33,6 @@ public class CartServlet extends HttpServlet {
     	HttpSession session = request.getSession(false);
     	
     	int accountId = (int) session.getAttribute("accountID");
-    	String productIdParam = request.getParameter("productID");
-        String quantityParam = request.getParameter("quantity");
-    	System.out.println("Account ID: " + accountId);
-    	System.out.println("Product ID: " + productIdParam);
-    	System.out.println("Quantity: " + quantityParam);
-    	
-    	try {
-            int productId = Integer.parseInt(productIdParam);
-            int quantity = Integer.parseInt(quantityParam);
-
-            Favorite favorite = new Favorite();
-            favorite.setAccountId(accountId);
-            favorite.setProductId(productId);
-            favorite.setBuy(quantity);
-            favoriteDAO.addFavo(favorite);
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid productId or quantity");
-            return; 
-        }
-    	
-    	String action = request.getParameter("action");
-    	if ("viewCart".equals(action)) {
-            viewCart(request, accountId);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cart.jsp");
-            dispatcher.forward(request, response);
-        }
     	
         List<Favorite> favorites = favoriteDAO.getAllCartByStatus(accountId);
         List<Product> products = new ArrayList<>();
@@ -91,27 +64,7 @@ public class CartServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/cart.jsp");
         dispatcher.forward(request, response);
     }
-    private void viewCart(HttpServletRequest request, int accountId) {
-        List<Favorite> favorites = favoriteDAO.getAllCartByStatus(accountId);
-        List<Product> products = new ArrayList<>();
-        float totalPrice = 0;
 
-        for (Favorite favorite : favorites) {
-            Product product = productDAO.getProductByID(favorite.getProductId());
-            products.add(product);
-
-            float productPrice = Float.parseFloat(product.getPrice());
-            int productQuantity = favorite.getBuy();
-            float itemTotal = productPrice * productQuantity;
-            favorite.setTotalPrice(itemTotal);
-
-            totalPrice += itemTotal;
-        }
-
-        request.setAttribute("products", products);
-        request.setAttribute("favorites", favorites);
-        request.setAttribute("totalPrice", totalPrice);
-    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -120,3 +73,5 @@ public class CartServlet extends HttpServlet {
     
 
 }
+
+    
