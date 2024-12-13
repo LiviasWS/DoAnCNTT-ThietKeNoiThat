@@ -51,6 +51,7 @@
         <div class="main__container">
             <form id="filterForm" action="${pageContext.request.contextPath}/FunctionTestServlet" class="filter__container">
             	<input type="hidden" name="action" value="test">
+            	
                 <p class="filter__header">Color</p>
                 <div class="filter__item__container filter__item__container--common">
 	                <c:forEach var="color" items="${colors}">

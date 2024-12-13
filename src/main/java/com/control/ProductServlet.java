@@ -2,7 +2,11 @@ package com.control;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,8 +64,8 @@ public class ProductServlet extends HttpServlet {
 			case "Search":
 				ShowProductBySearching(request, response);
 				break;
-			case "Filter":
-				//ShowProductByFilter(request, response);
+			case "filter":
+				ShowProductByFilter(request, response);
 			default: 
 				break;
 		}
@@ -77,22 +81,60 @@ public class ProductServlet extends HttpServlet {
 	
 	private void ShowProductByFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		try
+		String address = "function-test.jsp";
+		String[] colorChecked = request.getParameterValues("color");
+		String[] categoryChecked = request.getParameterValues("category");
+		String[] collectionChecked = request.getParameterValues("collection");
+		String[] materialChecked = request.getParameterValues("material");
+		String searchKey = request.getParameter("searchKey");
+		Map<String, String> colorMap = createFilterMap(colorChecked);
+		Map<String, String> categoryMap = createFilterMap(categoryChecked);
+		Map<String, String> collectionMap = createFilterMap(collectionChecked);
+		Map<String, String> materialMap = createFilterMap(materialChecked);
+		request.setAttribute("colorMap", colorMap);
+		request.setAttribute("categoryMap", categoryMap);
+		request.setAttribute("collectionMap", collectionMap);
+		request.setAttribute("materialMap", materialMap);
+		Set<Product> products = new HashSet<>(productDAO.getAllProduct());
+		if(searchKey!=null)
 		{
-			String address = "search-page.jsp";
-			String color = request.getParameter("color");
-			String searchKey = request.getParameter("searchKey");
-			List<Product> products = productDAO.getProductByFilter(color);
-			request.setAttribute("products", products);
-			request.setAttribute("count", products.size());
+			products.retainAll(productDAO.GetProductBySearching(searchKey));
 			request.setAttribute("searchKey", searchKey);
-			RequestDispatcher dispatcher =  request.getRequestDispatcher(address);
-			dispatcher.forward(request, response);
 		}
-		catch(Exception e)
+		if(colorChecked!=null && colorChecked.length!=0)
 		{
-			e.printStackTrace();
+			List<Product> productsByColor = productDAO.getProductByColorList(colorChecked);
+			products.retainAll(productsByColor);
 		}
+		if(categoryChecked!=null && categoryChecked.length!=0)
+		{
+			List<Product> productsByCategory = productDAO.getProductByCategoryList(categoryChecked);
+			products.retainAll(productsByCategory);
+		}
+		if(collectionChecked!=null && collectionChecked.length!=0)
+		{
+			List<Product> productsByColletion = productDAO.getProductByCollectionList(collectionChecked);
+			products.retainAll(productsByColletion);
+		}
+		if(materialChecked!=null && materialChecked.length!=0)
+		{
+			List<Product> productsByMaterial = productDAO.getProductByMaterialList(materialChecked);
+			products.retainAll(productsByMaterial);
+		}
+		request.setAttribute("count", products.size());
+		request.setAttribute("products", products);
+		RequestDispatcher dispathcher = request.getRequestDispatcher(address);
+		dispathcher.forward(request, response);
+	}
+	
+	private Map<String, String> createFilterMap(String[] checkedValues) {
+	    Map<String, String> filterMap = new HashMap<>();
+	    if (checkedValues != null) {
+	        for (String value : checkedValues) {
+	            filterMap.put(value, "checked");
+	        }
+	    }
+	    return filterMap;
 	}
 	
 	private void ShowProductByCollection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

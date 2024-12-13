@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Product 
 {
@@ -12,6 +13,20 @@ public class Product
 	String image;
 	int quantity;
 	int sold;
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (obj == null || getClass() != obj.getClass()) return false;
+	    Product product = (Product) obj;
+	    return id == product.id; // Giả sử mỗi sản phẩm có ID duy nhất
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id);
+	}
+
 	
 	public Product() {}
 	

@@ -7,7 +7,7 @@
         <title>Search Page</title>
         <link rel="stylesheet" href="css/search-page.css"> 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="js/search-page.js"></script>
+        <script src="search-page.js"></script>
     </head>
     <body>
         <header>
@@ -50,11 +50,20 @@
         <input type="hidden" name="searchKey" value= "${searchKey}">
         <div class="main__container">
             <form id="filterForm" action="${pageContext.request.contextPath}/ProductServlet" class="filter__container">
+            	<input type="hidden" name="action" value="filter">
+            	<input type="hidden" name="searchKey" value="${searchKey}">
                 <p class="filter__header">Color</p>
                 <div class="filter__item__container filter__item__container--common">
 	                <c:forEach var="color" items="${colors}">
 	                    <div class="filter__item__common">
-	                        <input type="checkbox" name="color" value="${color.id}" onchange="applyFilter()">
+	                    	<c:choose>
+	                    		<c:when test="${colorMap[color.name]=='checked'}">
+	                    			<input type="checkbox" name="color" value="${color.name}" checked onclick="submitFilterForm()">
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<input type="checkbox" name="color" value="${color.name}" onclick="submitFilterForm()">
+	                    		</c:otherwise>
+	                    	</c:choose>
 	                        <label>${color.name}</label><br>
 	                    </div>
 	                </c:forEach>
@@ -64,17 +73,31 @@
                 <div class="filter__item__container filter__item__container--common">
 	                <c:forEach var="category" items="${categories}">
 	                    <div class="filter__item__common">
-	                        <input type="checkbox" name="cbCategoryValue" value="${category.id }">
-	                        <label>${category.name}</label><br>
-	                    </div>
+		                    <c:choose>
+	                    		<c:when test="${categoryMap[category.name]=='checked'}">
+	                    			<input type="checkbox" name="category" value="${category.name}" checked onclick="submitFilterForm()">
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<input type="checkbox" name="category" value="${category.name}" onclick="submitFilterForm()">
+	                    		</c:otherwise>
+	                    	</c:choose>
+	                    	<label>${category.name}</label><br>
+                    	</div>
 	                </c:forEach>
                 </div>
                 <div class="space__line"></div>
                 <p class="filter__header">Collections</p>
                 <div class="filter__item__container filter__item__container--common">
-	                <c:forEach var="collection" items="${collections }">
+	                <c:forEach var="collection" items="${collections}">
 	                    <div class="filter__item__common">
-	                        <input type="checkbox" name="cbCollectionValue" value="${collection.id }">
+	                        <c:choose>
+	                    		<c:when test="${collectionMap[collection.name]=='checked'}">
+	                    			<input type="checkbox" name="collection" value="${collection.name}" checked onclick="submitFilterForm()">
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<input type="checkbox" name="collection" value="${collection.name}" onclick="submitFilterForm()">
+	                    		</c:otherwise>
+	                    	</c:choose>
 	                        <label>${collection.name}</label><br>
 	                    </div>
 	                </c:forEach>
@@ -84,7 +107,14 @@
                 <div class="filter__item__container filter__item__container--common">
                 <c:forEach var="material" items="${materials}">
                     <div class="filter__item__common">
-                        <input type="checkbox" name="cbMaterialValue" value="${material.id }">
+                    	<c:choose>
+                    		<c:when test="${materialMap[material.name]=='checked'}">
+                    			<input type="checkbox" name="materail" value="${material.name}" checked onclick="submitFilterForm()">
+                    		</c:when>
+                    		<c:otherwise>
+                    			<input type="checkbox" name="material" value="${material.name}" onclick="submitFilterForm()">
+                    		</c:otherwise>
+                    	</c:choose>
                         <label>${material.name}</label><br>
                     </div>
                 </c:forEach>

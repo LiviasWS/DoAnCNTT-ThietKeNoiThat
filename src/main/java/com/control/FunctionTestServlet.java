@@ -65,7 +65,7 @@ public class FunctionTestServlet extends HttpServlet {
 		request.setAttribute("categories", categoryDAO.GetAllCategory());
 		if(action == null)
 		{
-			action = "init";
+			action = "test";
 		}
 		switch(action)
 		{
@@ -122,7 +122,26 @@ public class FunctionTestServlet extends HttpServlet {
 		request.setAttribute("collectionMap", collectionMap);
 		request.setAttribute("materialMap", materialMap);
 		Set<Product> products = new HashSet<>(productDAO.getAllProduct());
-		if()
+		if(colorChecked!=null && colorChecked.length!=0)
+		{
+			List<Product> productsByColor = productDAO.getProductByColorList(colorChecked);
+			products.retainAll(productsByColor);
+		}
+		if(categoryChecked!=null && categoryChecked.length!=0)
+		{
+			List<Product> productsByCategory = productDAO.getProductByCategoryList(categoryChecked);
+			products.retainAll(productsByCategory);
+		}
+		if(collectionChecked!=null && collectionChecked.length!=0)
+		{
+			List<Product> productsByColletion = productDAO.getProductByCollectionList(collectionChecked);
+			products.retainAll(productsByColletion);
+		}
+		if(materialChecked!=null && materialChecked.length!=0)
+		{
+			List<Product> productsByMaterial = productDAO.getProductByMaterialList(materialChecked);
+			products.retainAll(productsByMaterial);
+		}
 		request.setAttribute("products", products);
 		RequestDispatcher dispathcher = request.getRequestDispatcher(address);
 		dispathcher.forward(request, response);
@@ -137,7 +156,6 @@ public class FunctionTestServlet extends HttpServlet {
 		Map<String, String> categoryMap = new HashMap<>();
 		Map<String, String> collectionMap = new HashMap<>();
 		Map<String, String> materialMap = new HashMap<>();
-		colorMap.put("White", "checked");
 		request.setAttribute("colorMap", colorMap);
 		request.setAttribute("categoryMap", categoryMap);
 		request.setAttribute("collectionMap", collectionMap);
